@@ -24,6 +24,7 @@
 | **[EcoSprint](./EcoSprint/)** | Arcade / Falling | Atrapa residuos reciclables mientras cae a toda velocidad. | ✅ Jugable |
 | **[SaledSnake](./SaledSnake/)** | Arcade / Snake | La clásica serpiente, pero comiendo alimentos saludables y evitando la comida chatarra. | ✅ Jugable |
 | **[Reto Gota](./Retogota/)** | Timing / Precision | Ayuda a Gustavo a ahorrar agua deteniendo el flujo en el momento exacto. | ✅ Jugable |
+| **[Ahorra y corre](./ahorraycorre/)** | Runner / Arcade | Un runner donde el ahorro es el objetivo principal. | ✅ Jugable |
 
 > 💡 **Nota:** Haz clic en el nombre de cada juego para ver su documentación detallada, controles y capturas de pantalla.
 
