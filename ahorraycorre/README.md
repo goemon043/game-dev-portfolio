@@ -17,8 +17,8 @@ Partiendo de **$300**, el jugador debe llegar a **$3000** recolectando monedas y
 ### 🎮 Mecánica Principal
 El juego combina dos acciones en tiempo real:
 - ⬆️ **SALTAR** las **Tazas de Café ☕** (microgastos del suelo): gastos pequeños pero constantes que aparecen en el camino.
-- ⬇️ **AGACHARSE** ante los **Recibos Aéreos 🧾** (gastos sorpresa): obstáculos que cuelgan del cielo y **bloquean la trayectoria del salto**, obligando al jugador a calcular si debe brincar o agacharse.
-- Incluye efectos visuales de partículas, textos flotantes (+$50, -$100) y temblor de cámara al recibir daño.
+- ⬇️ **AGACHARSE** ante los **Tazas de café aereas** (gastos sorpresa): obstáculos que cuelgan del cielo y **bloquean la trayectoria del salto**, obligando al jugador a calcular si debe brincar o agacharse.
+- Incluye efectos visuales de partículas, textos flotantes (+$50, -$100).
 
 ## ️ Género
 `Endless Runner` | `Arcade` | `Educativo` | `Reflejos`
