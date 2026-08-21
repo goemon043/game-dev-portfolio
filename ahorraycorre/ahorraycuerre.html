@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ahorra y Corre - Modo Experto</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+        #gameContainer {
+            position: relative;
+            width: 900px;
+            height: 500px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.9);
+            border: 6px solid #444;
+            border-radius: 4px;
+            background: #000;
+            overflow: hidden;
+        }
+        canvas { display: block; }
+        
+        #progressContainer {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 25px;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid white;
+            border-radius: 15px;
+            z-index: 5;
+            overflow: hidden;
+        }
+        #progressBar {
+            width: 10%; /* Empieza en 300 de 3000 */
+            height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #2ecc71);
+            transition: width 0.3s ease-out;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+        #progressText {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 2px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        #uiLayer {
+            position: absolute; top: 15px; left: 15px; right: 15px;
+            display: flex; justify-content: space-between;
+            color: white; font-weight: 900; font-size: 22px;
+            text-shadow: 2px 2px 0 #000; pointer-events: none; z-index: 6;
+        }
+        .stat-box { 
+            background: rgba(0,0,0,0.7); padding: 5px 15px; 
+            border-radius: 10px; border: 2px solid #fff; 
+        }
+        
+        .screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; z-index: 10; text-align: center;
+        }
+        h1 { font-size: 50px; margin: 0 0 10px 0; color: #ffd700; text-shadow: 4px 4px 0 #d35400; }
+        p { font-size: 18px; margin-bottom: 20px; max-width: 600px; line-height: 1.4; }
+        
+        button {
+            padding: 15px 40px; font-size: 24px; font-weight: bold;
+            background: linear-gradient(to bottom, #2ecc71, #27ae60); 
+            color: white; border: none; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 6px 0 #1e8449;
+            transition: all 0.1s;
+        }
+        button:hover { transform: scale(1.05); filter: brightness(1.2); }
+        button:active { transform: translateY(6px); box-shadow: none; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer">
+    <audio id="bgMusic" loop>
+        <source src="assets/musica/musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="progressContainer">
+        <div id="progressBar"></div>
+        <div id="progressText">AHORROS: $300 / $3000</div>
+    </div>
+
+    <div id="uiLayer">
+        <div class="stat-box">💰 $<span id="scoreVal">300</span></div>
+    </div>
+
+    <div id="startScreen" class="screen">
+        <h1>AHORRA Y CORRE</h1>
+        <p>
+            ⬆️ <b>SALTA</b> las Tazas de Café (Microgastos del suelo)<br>
+            ⬇️ <b>AGÁCHATE</b> para esquivar los Recibos Aéreos (¡Bloquean tu salto!)<br>
+            💲 Meta difícil: ¡Consigue $3000 ahorrando cada centavo!
+        </p>
+        <button onclick="startGame()">▶ JUGAR AHORA</button>
+    </div>
+
+    <div id="gameOverScreen" class="screen hidden">
+        <h1 id="endTitle">GAME OVER</h1>
+        <p id="endMessage">Mensaje</p>
+        <button onclick="resetGame()">🔄 REINTENTAR</button>
+    </div>
+
+    <canvas id="gameCanvas" width="900" height="500"></canvas>
+</div>
+
+<script>
+    const imgBg = new Image(); imgBg.src = "assets/imagenes/background.png";
+    const imgPlayer = new Image(); imgPlayer.src = "assets/imagenes/player.png";
+    const imgCoin = new Image(); imgCoin.src = "assets/imagenes/coin.png";
+    const imgObs = new Image(); imgObs.src = "assets/imagenes/obstacle.png";
+    
+    const audio = document.getElementById('bgMusic');
+    audio.volume = 0.3;
+
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let gameRunning = false;
+    let frameCount = 0;
+    
+    // --- DIFICULTAD AUMENTADA ---
+    let score = 300;      // Empezamos con menos margen de error
+    const goal = 3000;    // Meta un 50% más alta
+    let gameSpeed = 7;    // Velocidad base un poco más rápida
+    
+    let bgX = 0;
+    let lastSpawnX = 900;
+
+    // Física ajustada: Salto alto pero con caída rápida para mayor control
+    const player = { 
+        x: 100, y: 350, w: 80, h: 100, 
+        dy: 0, jumpPower: -16, gravity: 0.95, 
+        grounded: false, ducking: false, originalH: 100 
+    };
+
+    let obstacles = [];
+    let coins = [];
+    let particles = [];
+    let floatingTexts = [];
+
+    document.addEventListener('keydown', (e) => {
+        if (!gameRunning) return;
+        if (e.code === 'ArrowUp' && player.grounded) {
+            player.dy = player.jumpPower;
+            player.grounded = false;
+            createParticles(player.x + 40, player.y + player.h, '#fff', 5);
+        }
+        if (e.code === 'ArrowDown') {
+            player.ducking = true;
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (e.code === 'ArrowDown') {
+            player.ducking = false;
+        }
+    });
+
+    function spawnManager() {
+        // Distancia ajustada para dar tiempo de reacción a la nueva velocidad
+        let minDistance = 500 + Math.random() * 150; 
+
+        if (lastSpawnX < canvas.width - minDistance) {
+            // Monedas: A veces colocadas como "trampa" visual
+            let coinCount = Math.random() > 0.6 ? 3 : 1;
+            for(let i=0; i<coinCount; i++) {
+                let yPos = Math.random() > 0.5 ? 260 : 340;
+                coins.push({ x: canvas.width + 50 + (i*60), y: yPos, w: 40, h: 40 });
+            }
+
+            let rand = Math.random();
+            
+            if (rand < 0.5) {
+                // ☕ TAZA DE CAFÉ (Suelo)
+                obstacles.push({ 
+                    x: canvas.width + 150, 
+                    y: 410, 
+                    w: 60, 
+                    h: 40, 
+                    type: 'ground',
+                    name: 'Taza de Café'
+                });
+            } else {
+                // 🧾 RECIBO AÉREO (Bloqueador de salto estratégico)
+                // Y=300, H=100 -> El fondo del recibo está en Y=400.
+                // El jugador saltando alcanza su punto máximo (apex) alrededor de Y=216, 
+                // pero al avanzar horizontalmente, su cuerpo chocará con el recibo en Y=300.
+                // El jugador agachado mide 40px y su Y es 410. ¡Pasa justo por debajo con 10px de margen!
+                obstacles.push({ 
+                    x: canvas.width + 150, 
+                    y: 300, 
+                    w: 110, // Ancho suficiente para que no puedas "brincar" el borde
+                    h: 100, 
+                    type: 'air',
+                    name: 'Recibo Aéreo'
+                });
+            }
+            lastSpawnX = canvas.width;
+        }
+    }
+
+    function update() {
+        // Aceleración progresiva más notoria
+        if (frameCount % 500 === 0) gameSpeed += 0.5;
+
+        player.dy += player.gravity;
+        player.y += player.dy;
+
+        if (player.y + player.h > 450) {
+            player.y = 450 - player.h;
+            player.dy = 0;
+            player.grounded = true;
+        } else { 
+            player.grounded = false; 
+        }
+
+        if (player.ducking && player.grounded) {
+            player.h = 40;
+        } else if (!player.ducking && player.grounded) {
+            player.h = player.originalH;
+        }
+
+        bgX -= gameSpeed * 0.5;
+        if (bgX <= -canvas.width) bgX = 0;
+
+        for (let i = 0; i < obstacles.length; i++) {
+            let obs = obstacles[i];
+            obs.x -= gameSpeed;
+            
+            if (checkCollision(player, obs)) {
+                // --- PENALIZACIÓN MÁS FUERTE ---
+                score -= 100; 
+                createParticles(obs.x + obs.w/2, obs.y + obs.h/2, '#e74c3c', 15);
+                addFloatingText("-$100", player.x, player.y, "red");
+                obstacles.splice(i, 1); i--; 
+                
+                canvas.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px)`;
+                setTimeout(() => canvas.style.transform = "none", 50);
+                checkGameOver();
+            }
+        }
+
+        for (let i = 0; i < coins.length; i++) {
+            let coin = coins[i];
+            coin.x -= gameSpeed;
+
+            if (checkCollision(player, coin)) {
+                // --- RECOMPENSA MÁS BAJA (Requiere consistencia) ---
+                score += 50; 
+                createParticles(coin.x + 20, coin.y + 20, '#f1c40f', 10);
+                addFloatingText("+$50", player.x, player.y, "#2ecc71");
+                coins.splice(i, 1); i--; 
+                checkWin();
+            }
+        }
+
+        for (let i = 0; i < floatingTexts.length; i++) {
+            floatingTexts[i].y -= 1.5; floatingTexts[i].life--;
+            if(floatingTexts[i].life <= 0) { floatingTexts.splice(i, 1); i--; }
+        }
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.x += p.vx; p.y += p.vy; p.life--;
+            if(p.life <= 0) { particles.splice(i, 1); i--; }
+        }
+
+        lastSpawnX -= gameSpeed;
+        spawnManager(); 
+        updateUI(); 
+        frameCount++;
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (imgBg.complete && imgBg.naturalWidth !== 0) {
+            ctx.drawImage(imgBg, bgX, 0, canvas.width, canvas.height);
+            ctx.drawImage(imgBg, bgX + canvas.width, 0, canvas.width, canvas.height);
+        } else {
+            ctx.fillStyle = "#2c3e50"; ctx.fillRect(0,0,canvas.width, canvas.height);
+        }
+
+        ctx.fillStyle = "#222"; ctx.fillRect(0, 450, canvas.width, 50);
+        ctx.fillStyle = "#f1c40f"; 
+        let stripeOffset = (frameCount * gameSpeed) % 60;
+        for(let i=-1; i<20; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i*60 - stripeOffset, 450);
+            ctx.lineTo(i*60 + 30 - stripeOffset, 500);
+            ctx.lineTo(i*60 + 10 - stripeOffset, 500);
+            ctx.lineTo(i*60 - 20 - stripeOffset, 450);
+            ctx.fill();
+        }
+
+        let bounce = (player.grounded && !player.ducking) ? Math.sin(frameCount * 0.5) * 5 : 0;
+        if (imgPlayer.complete && imgPlayer.naturalWidth !== 0) {
+            ctx.drawImage(imgPlayer, player.x, player.y + (player.ducking?0:bounce), player.w, player.h);
+        } else {
+            ctx.fillStyle = player.ducking ? "#3498db" : "#e67e22"; 
+            ctx.fillRect(player.x, player.y + (player.ducking?0:bounce), player.w, player.h);
+        }
+
+        obstacles.forEach(obs => {
+            if (imgObs.complete && imgObs.naturalWidth !== 0) {
+                ctx.drawImage(imgObs, obs.x, obs.y, obs.w, obs.h);
+            } else {
+                // DIBUJO TEMÁTICO DE FALLBACK
+                if (obs.type === 'ground') {
+                    ctx.fillStyle = "#6F4E37"; 
+                    ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+                    ctx.fillStyle = "#FFF"; 
+                    ctx.fillRect(obs.x, obs.y, obs.w, 10);
+                    ctx.strokeStyle = "#6F4E37";
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.arc(obs.x + obs.w, obs.y + 15, 12, -Math.PI/2, Math.PI/2);
+                    ctx.stroke();
+                } else {
+                    // Recibo colgando justo en la trayectoria del salto
+                    ctx.fillStyle = "#ecf0f1"; 
+                    ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+                    ctx.fillStyle = "#e74c3c"; // Texto de "PAGAR" o "-" en rojo
+                    ctx.font = "bold 16px Arial";
+                    ctx.fillText("-$", obs.x + 10, obs.y + 25);
+                    ctx.fillStyle = "#95a5a6"; 
+                    ctx.fillRect(obs.x + 10, obs.y + 35, obs.w - 20, 4);
+                    ctx.fillRect(obs.x + 10, obs.y + 50, obs.w - 20, 4);
+                    
+                    ctx.strokeStyle = "#7f8c8d";
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(obs.x + obs.w/2, 0);
+                    ctx.lineTo(obs.x + obs.w/2, obs.y);
+                    ctx.stroke();
+                }
+            }
+        });
+
+        coins.forEach(coin => {
+            if (imgCoin.complete && imgCoin.naturalWidth !== 0) ctx.drawImage(imgCoin, coin.x, coin.y, coin.w, coin.h);
+            else { ctx.fillStyle = "#f1c40f"; ctx.beginPath(); ctx.arc(coin.x+20, coin.y+20, 20, 0, Math.PI*2); ctx.fill(); }
+        });
+
+        floatingTexts.forEach(ft => {
+            ctx.fillStyle = ft.color;
+            ctx.font = "bold 30px Arial";
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 3;
+            ctx.strokeText(ft.text, ft.x, ft.y);
+            ctx.fillText(ft.text, ft.x, ft.y);
+        });
+
+        particles.forEach(p => {
+            ctx.fillStyle = p.color; 
+            ctx.globalAlpha = p.life / 20;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+            ctx.globalAlpha = 1;
+        });
+    }
+
+    function loop() {
+        if (!gameRunning) return;
+        update(); draw(); requestAnimationFrame(loop);
+    }
+
+    function checkCollision(r1, r2) {
+        let padding = 8;
+        return (r1.x < r2.x + r2.w - padding && r1.x + r1.w > r2.x + padding &&
+                r1.y < r2.y + r2.h - padding && r1.y + r1.h > r2.y + padding);
+    }
+
+    function createParticles(x, y, color, count) {
+        for(let i=0; i<count; i++) {
+            particles.push({ 
+                x: x, y: y, 
+                vx: (Math.random()-0.5)*8, vy: (Math.random()-0.5)*8, 
+                life: 20 + Math.random()*10, size: 4 + Math.random()*4, color: color 
+            });
+        }
+    }
+
+    function addFloatingText(text, x, y, color) {
+        floatingTexts.push({ text: text, x: x, y: y, color: color, life: 40 });
+    }
+
+    function updateUI() {
+        document.getElementById('scoreVal').innerText = score;
+        let percentage = Math.min((score / goal) * 100, 100);
+        document.getElementById('progressBar').style.width = percentage + "%";
+        document.getElementById('progressText').innerText = `AHORROS: $${score} / $${goal}`;
+    }
+    
+    function checkGameOver() { 
+        if (score <= 0) {
+            audio.pause();
+            endGame("¡BANCARROTA!", "Los microgastos te atraparon. ¡Salta las tazas y agáchate ante los recibos!"); 
+        } 
+    }
+    
+    function checkWin() { 
+        if (score >= goal) {
+            audio.pause();
+            endGame("¡META LOGRADA!", "¡Has controlado tus gastos con disciplina financiera!"); 
+        } 
+    }
+    
+    function endGame(title, msg) {
+        gameRunning = false;
+        document.getElementById('endTitle').innerText = title;
+        document.getElementById('endTitle').style.color = title.includes("BANCARROTA") ? "#e74c3c" : "#2ecc71";
+        document.getElementById('endMessage').innerText = msg;
+        document.getElementById('gameOverScreen').classList.remove('hidden');
+    }
+
+    function startGame() {
+        document.getElementById('startScreen').classList.add('hidden');
+        document.getElementById('gameOverScreen').classList.add('hidden');
+        audio.currentTime = 0;
+        audio.play().catch(e => console.log("Audio autoplay bloqueado"));
+        resetVariables();
+        gameRunning = true;
+        loop();
+    }
+
+    function resetVariables() {
+        score = 300; gameSpeed = 7; obstacles = []; coins = []; 
+        particles = []; floatingTexts = []; lastSpawnX = 900;
+        player.y = 350; player.dy = 0; player.ducking = false;
+        updateUI();
+    }
+    
+    function resetGame() { startGame(); }
+</script>
+</body>
+</html>
