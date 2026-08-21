@@ -22,7 +22,7 @@
 | :--- | :---: | :--- | :---: |
 | **[ARITMAT+](./AritmatPlus/)** | Platformer / Educativo | Salta entre plataformas resolviendo operaciones matemáticas para avanzar. | ✅ Jugable |
 | **[EcoSprint](./EcoSprint/)** | Arcade / Falling | Atrapa residuos reciclables y evita la basura mientras caes a toda velocidad. | ✅ Jugable |
-| **[03. Vida Sana](./03-vida-sana/)** | Arcade / Snake | La clásica serpiente, pero comiendo alimentos saludables y evitando la comida chatarra. | ✅ Jugable |
+| **[SaledSnake](./SaledSnake/)** | Arcade / Snake | La clásica serpiente, pero comiendo alimentos saludables y evitando la comida chatarra. | ✅ Jugable |
 | **[04. Reto Gota](./04-reto-gota/)** | Timing / Precision | Ayuda a Gustavo a ahorrar agua deteniendo el flujo en el momento exacto. | ✅ Jugable |
 
 > 💡 **Nota:** Haz clic en el nombre de cada juego para ver su documentación detallada, controles y capturas de pantalla.
