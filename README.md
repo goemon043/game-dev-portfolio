@@ -21,7 +21,7 @@
 | Proyecto | Género | Descripción | Estado |
 | :--- | :---: | :--- | :---: |
 | **[ARITMAT+](./AritmatPlus/)** | Platformer / Educativo | Salta entre plataformas resolviendo operaciones matemáticas para avanzar. | ✅ Jugable |
-| **[EcoSprint](./EcoSprint/)** | Arcade / Falling | Atrapa residuos reciclables y evita la basura mientras caes a toda velocidad. | ✅ Jugable |
+| **[EcoSprint](./EcoSprint/)** | Arcade / Falling | Atrapa residuos reciclables mientras cae a toda velocidad. | ✅ Jugable |
 | **[SaledSnake](./SaledSnake/)** | Arcade / Snake | La clásica serpiente, pero comiendo alimentos saludables y evitando la comida chatarra. | ✅ Jugable |
 | **[Reto Gota](./Retogota/)** | Timing / Precision | Ayuda a Gustavo a ahorrar agua deteniendo el flujo en el momento exacto. | ✅ Jugable |
 
