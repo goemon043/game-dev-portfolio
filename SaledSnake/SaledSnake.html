@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥗 Vida Sana: Serpiente Saludable</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #0b1d12;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #hud {
+            display: flex;
+            justify-content: space-around;
+            width: 600px;
+            padding: 15px;
+            background: #1b4332;
+            border: 3px solid #40916c;
+            border-bottom: none;
+            border-radius: 15px 15px 0 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .hud-item { display: flex; align-items: center; gap: 8px; }
+
+        #game-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            background: #1b4332;
+            border: 3px solid #40916c;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            image-rendering: pixelated;
+        }
+
+        #message-panel {
+            width: 600px;
+            height: 80px;
+            background: linear-gradient(to right, #1a5f2a, #2d8a4e);
+            border: 3px solid #40916c;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        #message-text {
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1.6;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        /* NUEVO: Mensaje de advertencia arriba, no en el centro */
+        #death-message {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(180, 0, 0, 0.95);
+            border: 2px solid #ff4444;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            display: none;
+            z-index: 20;
+            text-align: center;
+            animation: slideDown 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+        }
+        
+        @keyframes slideDown {
+            0% { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 29, 18, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .screen h1 { font-size: 36px; margin-bottom: 15px; color: #52b788; }
+        .screen h2 { font-size: 24px; margin-bottom: 25px; color: #d8f3dc; }
+        .screen p { font-size: 16px; margin-bottom: 20px; line-height: 1.6; color: #b7e4c7; }
+
+        .btn {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            font-family: inherit;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: #52b788; color: #0b1d12; box-shadow: 0 4px 0 #2d6a4f; }
+        .btn-secondary { background: #2d6a4f; color: white; box-shadow: 0 4px 0 #1b4332; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div id="game-wrapper">
+        <div id="hud" class="hidden">
+            <div class="hud-item">🎯 <span id="score">0</span>/35</div>
+            <div class="hud-item">❤️ <span id="lives">3</span></div>
+            <div class="hud-item">🍎 <span id="foods">0</span></div>
+        </div>
+
+        <div id="game-container">
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            
+            <div id="death-message"></div>
+
+            <div id="menu-screen" class="screen">
+                <h1>🥗 Vida Sana</h1>
+                <h2>La serpiente saludable</h2>
+                <p>Tu misión: llega a <b>35 puntos</b> comiendo alimentos saludables.<br>¡Cuidado! Cada 5 alimentos que comas, aparecerán 3 obstáculos de comida chatarra.</p>
+                <p style="font-size: 14px; color: #95d5b2;">Usa <b>W A S D</b> para moverte</p>
+                <button class="btn btn-primary" onclick="startGame()">▶ JUGAR</button>
+            </div>
+
+            <div id="gameover-screen" class="screen hidden">
+                <h1>💔 Fin del juego</h1>
+                <h2>Puntuación: <span id="final-score">0</span>/35</h2>
+                <p>La comida chatarra te atrapó. ¡Inténtalo de nuevo!</p>
+                <button class="btn btn-primary" onclick="startGame()">🔄 Jugar de nuevo</button>
+                <button class="btn btn-secondary" onclick="showMenu()">🏠 Menú</button>
+            </div>
+
+            <div id="victory-screen" class="screen hidden">
+                <h1>🏆 ¡Excelente trabajo!</h1>
+                <h2>¡Llegaste a 35 puntos!</h2>
+                <p>Has aprendido a elegir alimentos saludables y a esquivar la chatarra.<br>¡Tu cuerpo te lo agradece!</p>
+                <button class="btn btn-primary" onclick="startGame()">🔄 Jugar otra vez</button>
+                <button class="btn btn-secondary" onclick="showMenu()">🏠 Menú</button>
+            </div>
+        </div>
+
+        <div id="message-panel">
+            <div id="message-text">🥗 ¡Bienvenido! Usa W A S D para mover la serpiente y come alimentos saludables.</div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const GRID = 15;
+        const CELL = canvas.width / GRID; // 40px
+        
+        let snake, direction, nextDirection, healthyFood, score, lives, healthyEaten;
+        let junkObstacles = [];
+        let gameLoop, speed;
+
+        const healthyEmojis = ['🍎', '🍌', '🍓', '🥕', '🍇', '🥑', '🍅'];
+        const junkEmojis = ['🍔', '🍕', '🍭', '🥤', '🌭', '🍿'];
+        
+        const eduMessages = [
+            " ¡La fruta es energía natural!",
+            "🥕 ¡Las zanahorias mejoran tu vista!",
+            "🍊 ¡Las naranjas tienen mucha vitamina C!",
+            "🍇 ¡Las uvas tienen antioxidantes!",
+            " ¡La sandía te hidrata!",
+            "🥑 ¡El aguacate tiene grasas saludables!",
+            "🍅 ¡El tomate es rico en licopeno!",
+            "🍌 ¡El plátano da energía!",
+            " ¡Las fresas son ricas en vitamina C!",
+            "🍔 ¡La chatarra solo te pone lento!",
+            "🍟 ¡Las papas fritas tienen mucha grasa!",
+            " ¡Los dulces en exceso dañan tus dientes!",
+            "🥤 ¡Los refrescos tienen mucha azúcar!",
+            "🍕 ¡La pizza en exceso no es saludable!",
+            "🌭 ¡Los embutidos tienen mucho sodio!",
+            "🍿 ¡Las palomitas de microondas tienen mucha sal!"
+        ];
+
+        let currentMessageIndex = 0;
+
+        function rotateMessage() {
+            currentMessageIndex = (currentMessageIndex + 1) % eduMessages.length;
+            const messageText = document.getElementById('message-text');
+            messageText.textContent = eduMessages[currentMessageIndex];
+        }
+
+        setInterval(rotateMessage, 6000);
+
+        function startGame() {
+            hideAllScreens();
+            document.getElementById('hud').classList.remove('hidden');
+            
+            snake = [{x: 7, y: 7}, {x: 6, y: 7}, {x: 5, y: 7}];
+            direction = {x: 1, y: 0};
+            nextDirection = {x: 1, y: 0};
+            score = 0;
+            lives = 3;
+            healthyEaten = 0;
+            junkObstacles = [];
+            speed = 150;
+            
+            updateHUD();
+            spawnHealthyFood();
+            
+            if (gameLoop) clearInterval(gameLoop);
+            gameLoop = setInterval(update, speed);
+            
+            draw();
+        }
+
+        function getRandomEmptyCell() {
+            let pos;
+            let attempts = 0;
+            do {
+                pos = {
+                    x: Math.floor(Math.random() * GRID),
+                    y: Math.floor(Math.random() * GRID)
+                };
+                attempts++;
+                if (attempts > 100) return null;
+            } while (
+                snake.some(s => s.x === pos.x && s.y === pos.y) ||
+                junkObstacles.some(o => o.x === pos.x && o.y === pos.y) ||
+                (healthyFood && healthyFood.x === pos.x && healthyFood.y === pos.y)
+            );
+            return pos;
+        }
+
+        function spawnHealthyFood() {
+            const pos = getRandomEmptyCell();
+            if (pos) {
+                const emoji = healthyEmojis[Math.floor(Math.random() * healthyEmojis.length)];
+                healthyFood = { x: pos.x, y: pos.y, emoji: emoji };
+            }
+        }
+
+        function spawnJunkObstacles(count) {
+            for (let i = 0; i < count; i++) {
+                const pos = getRandomEmptyCell();
+                if (pos) {
+                    const emoji = junkEmojis[Math.floor(Math.random() * junkEmojis.length)];
+                    junkObstacles.push({ x: pos.x, y: pos.y, emoji: emoji });
+                }
+            }
+        }
+
+        function update() {
+            direction = nextDirection;
+            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+
+            if (head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID) {
+                loseLife("🧱 ¡Chocaste contra la pared!");
+                return;
+            }
+
+            if (snake.some(s => s.x === head.x && s.y === head.y)) {
+                loseLife("🐍 ¡Te chocaste contigo mismo!");
+                return;
+            }
+
+            if (junkObstacles.some(o => o.x === head.x && o.y === head.y)) {
+                loseLife("🍔 ¡Comiste comida chatarra!");
+                return;
+            }
+
+            snake.unshift(head);
+
+            if (healthyFood && head.x === healthyFood.x && head.y === healthyFood.y) {
+                score += 1;
+                healthyEaten++;
+                
+                if (healthyEaten % 5 === 0) {
+                    spawnJunkObstacles(3);
+                }
+                
+                spawnHealthyFood();
+                rotateMessage();
+                
+                if (score >= 35) {
+                    victory();
+                    return;
+                }
+            } else {
+                snake.pop();
+            }
+
+            updateHUD();
+            draw();
+        }
+
+        function loseLife(reason) {
+            lives--;
+            updateHUD();
+            
+            const msg = document.getElementById('death-message');
+            msg.textContent = reason + " (Vidas: " + lives + ")";
+            msg.style.display = 'block';
+            
+            // Tiempo reducido a 1.5 segundos
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 1500);
+            
+            if (lives <= 0) {
+                gameOver();
+            } else {
+                snake = [{x: 7, y: 7}, {x: 6, y: 7}, {x: 5, y: 7}];
+                direction = {x: 1, y: 0};
+                nextDirection = {x: 1, y: 0};
+                rotateMessage();
+                draw();
+            }
+        }
+
+        function draw() {
+            ctx.fillStyle = '#1b4332';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = '#2d6a4f';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= GRID; i++) {
+                ctx.beginPath(); ctx.moveTo(i * CELL, 0); ctx.lineTo(i * CELL, canvas.height); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(0, i * CELL); ctx.lineTo(canvas.width, i * CELL); ctx.stroke();
+            }
+
+            ctx.font = 'bold 38px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            junkObstacles.forEach(obs => {
+                ctx.globalAlpha = 0.85;
+                ctx.fillText(obs.emoji, obs.x * CELL + CELL/2, obs.y * CELL + CELL/2 + 3);
+                ctx.globalAlpha = 1.0;
+            });
+
+            if (healthyFood) {
+                ctx.fillText(healthyFood.emoji, healthyFood.x * CELL + CELL/2, healthyFood.y * CELL + CELL/2 + 3);
+            }
+
+            snake.forEach((segment, index) => {
+                const x = segment.x * CELL;
+                const y = segment.y * CELL;
+                const isHead = index === 0;
+                
+                ctx.fillStyle = isHead ? '#3a86ff' : '#4cc9f0';
+                ctx.beginPath();
+                ctx.roundRect(x + 3, y + 3, CELL - 6, CELL - 6, 8);
+                ctx.fill();
+
+                if (isHead) {
+                    ctx.fillStyle = 'white';
+                    let eyeX1, eyeY1, eyeX2, eyeY2;
+                    
+                    if (direction.x === 1) { eyeX1 = x+28; eyeY1 = y+12; eyeX2 = x+28; eyeY2 = y+28; }
+                    else if (direction.x === -1) { eyeX1 = x+12; eyeY1 = y+12; eyeX2 = x+12; eyeY2 = y+28; }
+                    else if (direction.y === -1) { eyeX1 = x+12; eyeY1 = y+12; eyeX2 = x+28; eyeY2 = y+12; }
+                    else { eyeX1 = x+12; eyeY1 = y+28; eyeX2 = x+28; eyeY2 = y+28; }
+                    
+                    ctx.beginPath(); ctx.arc(eyeX1, eyeY1, 6, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(eyeX2, eyeY2, 6, 0, Math.PI*2); ctx.fill();
+                    
+                    ctx.fillStyle = 'black';
+                    ctx.beginPath(); ctx.arc(eyeX1, eyeY1, 3, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(eyeX2, eyeY2, 3, 0, Math.PI*2); ctx.fill();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (['w','a','s','d'].includes(key)) e.preventDefault();
+
+            if (key === 'w' && direction.y !== 1) nextDirection = {x: 0, y: -1};
+            if (key === 's' && direction.y !== -1) nextDirection = {x: 0, y: 1};
+            if (key === 'a' && direction.x !== 1) nextDirection = {x: -1, y: 0};
+            if (key === 'd' && direction.x !== -1) nextDirection = {x: 1, y: 0};
+        });
+
+        function updateHUD() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('lives').textContent = lives;
+            document.getElementById('foods').textContent = healthyEaten;
+        }
+
+        function gameOver() {
+            clearInterval(gameLoop);
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('gameover-screen').classList.remove('hidden');
+            document.getElementById('hud').classList.add('hidden');
+        }
+
+        function victory() {
+            clearInterval(gameLoop);
+            document.getElementById('victory-screen').classList.remove('hidden');
+            document.getElementById('hud').classList.add('hidden');
+        }
+
+        function showMenu() {
+            hideAllScreens();
+            document.getElementById('menu-screen').classList.remove('hidden');
+            ctx.fillStyle = '#1b4332';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function hideAllScreens() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        }
+
+        showMenu();
+    </script>
+</body>
+</html>
