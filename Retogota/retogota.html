@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💧 Reto Gota - Gustavo Laura</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    background:linear-gradient(135deg,#0879d1,#63d0f5);
+    color:#17324d;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:900;
+}
+
+button:active{
+    transform:scale(.95);
+}
+
+.screen{
+    min-height:100vh;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.header{
+    width:min(1100px,100%);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+    color:white;
+}
+
+.logo{
+    font-size:clamp(25px,5vw,42px);
+    font-weight:1000;
+    text-shadow:3px 3px #07509c;
+}
+
+.stats{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.stat{
+    background:white;
+    padding:10px 15px;
+    border-radius:20px;
+    font-weight:900;
+    box-shadow:0 5px 15px #0003;
+}
+
+.btn{
+    padding:15px 25px;
+    border-radius:18px;
+    color:white;
+    font-size:17px;
+    margin:5px;
+    box-shadow:0 6px 0 #0003;
+    transition:all 0.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 0 #0003;
+}
+
+.blue{background:#0879d1}
+.green{background:#43a047}
+.orange{background:#fb8c00}
+.red{background:#e53935}
+.purple{background:#7b1fa2}
+
+.home{
+    width:min(850px,95%);
+    background:white;
+    border-radius:35px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 20px 50px #0004;
+}
+
+.home h1{
+    font-size:clamp(42px,9vw,75px);
+    color:#0879d1;
+}
+
+.home h2{
+    color:#245b80;
+    margin:10px;
+}
+
+.home p{
+    font-size:18px;
+    line-height:1.5;
+    max-width:650px;
+    margin:15px auto;
+}
+
+.avatar-home{
+    width:250px;
+    height:auto;
+    margin:0 auto 20px;
+    animation:flotar 2s infinite ease-in-out;
+}
+
+@keyframes flotar{
+    50%{transform:translateY(-12px)}
+}
+
+.map{
+    width:min(1050px,95%);
+    background:white;
+    border-radius:35px;
+    padding:25px;
+    box-shadow:0 20px 50px #0004;
+}
+
+.map h1{
+    text-align:center;
+    color:#0879d1;
+    margin-bottom:25px;
+}
+
+.level-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+    gap:18px;
+}
+
+.level-card{
+    background:linear-gradient(145deg,#e8f7ff,#bce7ff);
+    border:4px solid #63bdf0;
+    border-radius:25px;
+    min-height:180px;
+    padding:15px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    transition:.2s;
+}
+
+.level-card:hover:not(.locked){
+    transform:translateY(-6px);
+}
+
+.level-card.locked{
+    opacity:.5;
+    filter:grayscale(1);
+}
+
+.level-number{
+    background:#0879d1;
+    color:white;
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    display:grid;
+    place-items:center;
+    font-weight:bold;
+}
+
+.level-icon{
+    font-size:48px;
+}
+
+.level-name{
+    font-weight:900;
+    margin:7px;
+}
+
+.level-litros{
+    color:#075da1;
+    font-weight:bold;
+}
+
+.level-stars{
+    color:#ffb300;
+    font-size:20px;
+}
+
+.tip-box{
+    width:min(700px,95%);
+    background:white;
+    border-radius:30px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 20px 50px #0004;
+    margin-top:20px;
+}
+
+.tip-icon{
+    font-size:70px;
+}
+
+.tip-box h1{
+    color:#0879d1;
+    margin:10px;
+}
+
+.tip{
+    background:#e5f7ff;
+    padding:18px;
+    border-radius:18px;
+    margin:18px 0;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.target{
+    font-size:30px;
+    color:#075da1;
+    font-weight:1000;
+}
+
+.game-header{
+    width:min(1100px,100%);
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.game-header h2{
+    font-size:clamp(20px,4vw,32px);
+}
+
+.game{
+    position:relative;
+    width:min(1100px,100%);
+    height:590px;
+    overflow:hidden;
+    border-radius:35px;
+    box-shadow:0 20px 50px #0005;
+}
+
+.scene-background{
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    z-index:1;
+}
+
+/* GUSTAVO MUCHO MÁS GRANDE */
+.gustavo{
+    position:absolute;
+    z-index:30;
+    bottom:50px;
+    left:5%;
+    text-align:center;
+    transition:all 0.3s ease;
+}
+
+.gustavo img{
+    width:100%;
+    height:auto;
+    image-rendering:pixelated;
+    image-rendering:crisp-edges;
+    filter:drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
+}
+
+.g-name{
+    background:#075da1;
+    color:white;
+    padding:10px 20px;
+    border-radius:15px;
+    font-size:18px;
+    font-weight:900;
+    margin-top:10px;
+    display:inline-block;
+    box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    letter-spacing:1px;
+}
+
+.action{
+    animation:accion .45s infinite alternate;
+}
+
+@keyframes accion{
+    from{transform:rotate(-2deg) translateY(0)}
+    to{transform:rotate(2deg) translateY(-5px)}
+}
+
+.counter{
+    position:absolute;
+    z-index:60;
+    top:15px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    padding:12px 25px;
+    border-radius:25px;
+    text-align:center;
+    min-width:270px;
+    box-shadow:0 7px 20px #0003;
+}
+
+.water-number{
+    color:#0879d1;
+    font-size:32px;
+    font-weight:1000;
+}
+
+.timer{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.progress-outer{
+    width:100%;
+    height:14px;
+    background:#d5e8ef;
+    border-radius:20px;
+    margin-top:8px;
+    overflow:hidden;
+}
+
+.progress-inner{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#29b6f6,#0879d1);
+    transition:width .03s linear;
+}
+
+.container{
+    position:absolute;
+    width:180px;
+    height:250px;
+    left:50%;
+    bottom:65px;
+    transform:translateX(-50%);
+    border:7px solid white;
+    border-top:none;
+    border-radius:5px 5px 25px 25px;
+    background:#ffffff33;
+    overflow:hidden;
+    z-index:10;
+}
+
+.target-line{
+    position:absolute;
+    width:100%;
+    height:4px;
+    background:#ffeb3b;
+    box-shadow:0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+    z-index:15;
+    animation:pulse-line 1s infinite;
+}
+
+@keyframes pulse-line{
+    0%, 100%{opacity:1}
+    50%{opacity:0.5}
+}
+
+.safe-zone{
+    position:absolute;
+    width:100%;
+    background:rgba(76,175,80,0.2);
+    border-top:2px dashed #4caf50;
+    border-bottom:2px dashed #4caf50;
+    z-index:14;
+}
+
+.water{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:0;
+    background:linear-gradient(#5bd9ff,#0288d1);
+    transition:height .03s linear;
+}
+
+.water:before{
+    content:"";
+    position:absolute;
+    top:-8px;
+    width:120%;
+    left:-10%;
+    height:15px;
+    background:#8de5ff;
+    border-radius:50%;
+}
+
+.precision-indicator{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:48px;
+    font-weight:bold;
+    color:white;
+    text-shadow:3px 3px 0 #000;
+    z-index:20;
+    display:none;
+    animation:pop-in 0.3s;
+}
+
+@keyframes pop-in{
+    0%{transform:translate(-50%,-50%) scale(0)}
+    100%{transform:translate(-50%,-50%) scale(1)}
+}
+
+.control{
+    width:min(1100px,100%);
+    text-align:center;
+    margin-top:15px;
+}
+
+.stop{
+    width:min(90%,520px);
+    padding:22px;
+    border-radius:25px;
+    background:#e53935;
+    color:white;
+    font-size:24px;
+    box-shadow:0 8px 0 #a51d1d;
+    transition:all 0.2s;
+}
+
+.stop:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 0 #a51d1d;
+}
+
+.stop:disabled{
+    opacity:.6;
+}
+
+.result{
+    width:min(700px,95%);
+    background:white;
+    border-radius:35px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 20px 50px #0004;
+}
+
+.result-icon{
+    font-size:90px;
+}
+
+.result h1{
+    color:#0879d1;
+    font-size:38px;
+    margin:10px;
+}
+
+.result-water{
+    font-size:42px;
+    font-weight:1000;
+    color:#075da1;
+}
+
+.result-stars{
+    font-size:45px;
+    color:#ffb300;
+    margin:15px;
+}
+
+.result-points{
+    font-size:28px;
+    font-weight:900;
+}
+
+.message{
+    background:#e8f7ff;
+    border-radius:18px;
+    padding:15px;
+    margin:15px 0;
+    font-weight:bold;
+}
+
+.particle{
+    position:absolute;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:100;
+}
+
+.water-drop{
+    position:absolute;
+    width:8px;
+    height:12px;
+    background:linear-gradient(#5bd9ff,#0288d1);
+    border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+    z-index:5;
+    animation:fall linear;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(400px);
+        opacity:0;
+    }
+}
+
+.splash{
+    position:absolute;
+    width:15px;
+    height:15px;
+    background:radial-gradient(circle,#5bd9ff,#0288d1);
+    border-radius:50%;
+    z-index:6;
+    animation:splash 0.5s ease-out;
+}
+
+@keyframes splash{
+    0%{
+        transform:scale(0);
+        opacity:1;
+    }
+    100%{
+        transform:scale(2);
+        opacity:0;
+    }
+}
+
+@media(max-width:650px){
+    .header{
+        align-items:flex-start;
+    }
+    .stats{
+        font-size:12px;
+    }
+    .game{
+        height:550px;
+    }
+    .gustavo{
+        width:200px !important;
+    }
+    .container{
+        width:145px;
+        height:210px;
+    }
+    .counter{
+        min-width:240px;
+        padding:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+const levels = [
+    {
+        id:1,
+        name:"El vaso",
+        icon:"🥛",
+        target:1,
+        speed:0.018,
+        scene:"glass",
+        button:" DETENER GRIFO",
+        tip:"Detén el grifo apenas tengas el agua que necesitas.",
+        message:"Usar solamente el agua necesaria también es ahorrar.",
+        gustavoSize: 300,
+        gustavoPos: {left: "2%", bottom: "50px"}
+    },
+    {
+        id:2,
+        name:"La ducha",
+        icon:"🚿",
+        target:35,
+        speed:0.105,
+        scene:"shower",
+        button:"🚿 CERRAR DUCHA",
+        tip:"Una ducha más corta puede ahorrar mucha agua.",
+        message:"Cerrar la ducha a tiempo evita desperdiciar muchos litros.",
+        gustavoSize: 320,
+        gustavoPos: {left: "5%", bottom: "50px"}
+    },
+    {
+        id:3,
+        name:"La fuga",
+        icon:"",
+        target:15,
+        speed:0.045,
+        scene:"leak",
+        button:"🔧 CERRAR FUGA",
+        tip:"Una fuga pequeña puede desperdiciar agua rápidamente.",
+        message:"Detectar y reparar una fuga es una de las mejores formas de ahorrar.",
+        gustavoSize: 310,
+        gustavoPos: {left: "8%", bottom: "50px"}
+    },
+    {
+        id:4,
+        name:"La lavadora",
+        icon:"👕",
+        target:50,
+        speed:0.150,
+        scene:"washer",
+        button:"👕 DETENER LAVADORA",
+        tip:"Usa la cantidad necesaria para lavar la ropa.",
+        message:"Una carga bien organizada evita usar agua de más.",
+        gustavoSize: 330,
+        gustavoPos: {left: "3%", bottom: "50px"}
+    },
+    {
+        id:5,
+        name:"La cocina",
+        icon:"🍽️",
+        target:12,
+        speed:0.036,
+        scene:"kitchen",
+        button:"🍽️ CERRAR GRIFO",
+        tip:"Cierra el grifo mientras no estés usando el agua.",
+        message:"No dejar correr el agua innecesariamente ayuda mucho.",
+        gustavoSize: 315,
+        gustavoPos: {left: "6%", bottom: "50px"}
+    },
+    {
+        id:6,
+        name:"Regar la planta",
+        icon:"🌱",
+        target:5,
+        speed:0.022,
+        scene:"plant",
+        button:"🌱 DETENER MANGUERA",
+        tip:"Riega solamente la cantidad que la planta necesita.",
+        message:"Una planta no necesita que dejemos correr agua de más.",
+        gustavoSize: 340,
+        gustavoPos: {left: "10%", bottom: "50px"}
+    },
+    {
+        id:7,
+        name:"Lavar la bici",
+        icon:"🚲",
+        target:15,
+        speed:0.045,
+        scene:"bike",
+        button:"🚲 CERRAR MANGUERA",
+        tip:"No mantengas la manguera abierta mientras limpias.",
+        message:"Cerrar el agua durante la limpieza evita desperdiciarla.",
+        gustavoSize: 350,
+        gustavoPos: {left: "5%", bottom: "50px"}
+    },
+    {
+        id:8,
+        name:"Gran desafío",
+        icon:"💧",
+        target:60,
+        speed:0.180,
+        scene:"final",
+        button:"💧 DETENER AGUA",
+        tip:"Controla cada gota y utiliza solamente lo necesario.",
+        message:"¡Cada gota cuenta! Ya aprendiste a controlar el agua.",
+        gustavoSize: 360,
+        gustavoPos: {left: "7%", bottom: "50px"}
+    }
+];
+
+let progress={
+    unlocked:1,
+    stars:Array(8).fill(0),
+    points:0,
+    best:0
+};
+
+let currentLevel=1;
+let water=0;
+let waterTimer=null;
+let timeTimer=null;
+let dropTimer=null;
+let startTime=0;
+let finished=false;
+
+function loadProgress(){
+    const saved=localStorage.getItem("retoGotaGustavo");
+    if(saved){
+        try{
+            progress=JSON.parse(saved);
+        }catch(e){
+            console.log("No se pudo cargar.");
+        }
+    }
+}
+
+function saveProgress(){
+    localStorage.setItem("retoGotaGustavo",JSON.stringify(progress));
+}
+
+function starsText(n){
+    return "⭐".repeat(n)+"☆".repeat(3-n);
+}
+
+function header(){
+return `
+<div class="header">
+    <div class="logo">💧 RETO GOTA</div>
+    <div class="stats">
+        <div class="stat"> ${progress.points}</div>
+        <div class="stat">⭐ ${progress.stars.reduce((a,b)=>a+b,0)}</div>
+    </div>
+</div>
+`;
+}
+
+function home(){
+    stopTimers();
+    document.getElementById("app").innerHTML=`
+    <div class="screen">
+        ${header()}
+        <div class="home">
+            <img src="assets/gustavo1.png" alt="Gustavo" class="avatar-home">
+            <h1>💧 RETO GOTA</h1>
+            <h2>El desafío de Gustavo Laura</h2>
+            <p>Ayuda a Gustavo a realizar actividades cotidianas usando solamente el agua necesaria.</p>
+            <p>🎯 <strong>¡Haz clic exactamente en el momento correcto!</strong></p>
+            <button class="btn blue" onclick="levelMap()">▶ JUGAR</button>
+            <button class="btn green" onclick="levelMap()">🗺️ NIVELES</button>
+            <br>
+            <button class="btn orange" onclick="resetProgress()">️ REINICIAR PROGRESO</button>
+        </div>
+    </div>
+    `;
+}
+
+function levelMap(){
+    stopTimers();
+    let html="";
+    levels.forEach(level=>{
+        const unlocked=level.id<=progress.unlocked;
+        const stars=progress.stars[level.id-1];
+        html+=`
+        <div class="level-card ${unlocked?"":"locked"}" onclick="${unlocked?`showTip(${level.id})`:""}">
+            <div class="level-number">${level.id}</div>
+            <div class="level-icon">${level.icon}</div>
+            <div class="level-name">${level.name}</div>
+            <div class="level-litros">🎯 ${level.target} L</div>
+            <div class="level-stars">${unlocked?starsText(stars):"🔒"}</div>
+        </div>
+        `;
+    });
+    document.getElementById("app").innerHTML=`
+    <div class="screen">
+        ${header()}
+        <div class="map">
+            <h1>🗺️ AVENTURA DE GUSTAVO</h1>
+            <div class="level-grid">${html}</div>
+            <br>
+            <div style="text-align:center">
+                <button class="btn blue" onclick="home()"> INICIO</button>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+function showTip(id){
+    const level=levels[id-1];
+    document.getElementById("app").innerHTML=`
+    <div class="screen">
+        ${header()}
+        <div class="tip-box">
+            <div class="tip-icon">${level.icon}</div>
+            <h1>NIVEL ${level.id}: ${level.name}</h1>
+            <div class="tip">💡 CONSEJO DE GUSTAVO<br><br>"${level.tip}"</div>
+            <div class="target">🎯 Necesitas: ${level.target} litros</div>
+            <p style="margin:15px">El agua comenzará a subir automáticamente. Haz clic cuando llegue al objetivo.</p>
+            <button class="btn green" onclick="startLevel(${id})">▶ COMENZAR</button>
+            <button class="btn blue" onclick="levelMap()">️ VOLVER AL MAPA</button>
+        </div>
+    </div>
+    `;
+}
+
+function gustavoHTML(level){
+    const size = level.gustavoSize || 300;
+    const pos = level.gustavoPos || {left: "5%", bottom: "50px"};
+    
+    return `
+    <div class="gustavo action" style="width:${size}px; left:${pos.left}; bottom:${pos.bottom};">
+        <img src="assets/gustavo2.png" alt="Gustavo">
+        <div class="g-name">GUSTAVO LAURA</div>
+    </div>
+    `;
+}
+
+function sceneHTML(level){
+    const sceneImages={
+        glass:"assets/level1-glass.png",
+        shower:"assets/level2-shower.png",
+        leak:"assets/level3-leak.png",
+        washer:"assets/level4-washer.png",
+        kitchen:"assets/level5-kitchen.png",
+        plant:"assets/level6-plant.png",
+        bike:"assets/level7-bike.png",
+        final:"assets/level8-final.png"
+    };
+    
+    const bgImage=sceneImages[level.scene]||"";
+    
+    return `
+    <div class="scene-background" style="background-image:url('${bgImage}')"></div>
+    <div class="container">
+        <div class="target-line" style="bottom:100%"></div>
+        <div class="safe-zone" style="bottom:95%;height:10%"></div>
+        <div id="waterVisual" class="water"></div>
+        <div id="precisionIndicator" class="precision-indicator"></div>
+    </div>
+    ${gustavoHTML(level)}
+    `;
+}
+
+function startLevel(id){
+    currentLevel=id;
+    const level=levels[id-1];
+    water=0;
+    finished=false;
+    document.getElementById("app").innerHTML=`
+    <div class="screen">
+        <div class="game-header">
+            <h2>${level.icon} NIVEL ${id}: ${level.name}</h2>
+            <button class="btn blue" onclick="levelMap()">🗺️ MAPA</button>
+        </div>
+        <div class="game">
+            ${sceneHTML(level)}
+            <div class="counter">
+                <div id="waterCounter" class="water-number">💧 0.0 / ${level.target} L</div>
+                <div id="timeCounter" class="timer">⏱️ 0.00 s</div>
+                <div class="progress-outer">
+                    <div id="progressInner" class="progress-inner"></div>
+                </div>
+                <div style="margin-top:5px"> DETÉN EN ${level.target} L</div>
+            </div>
+        </div>
+        <div class="control">
+            <button id="stopButton" class="stop">${level.button}</button>
+            <p style="color:white;margin-top:10px;font-weight:bold;">⚡ ¡Haz clic en el momento exacto!</p>
+        </div>
+    </div>
+    `;
+    const button=document.getElementById("stopButton");
+    button.addEventListener("click",stopWater);
+    button.addEventListener("touchstart",function(e){
+        e.preventDefault();
+        stopWater();
+    },{passive:false});
+    startWater();
+    startWaterDrops();
+}
+
+function startWater(){
+    stopTimers();
+    const level=levels[currentLevel-1];
+    startTime=Date.now();
+    water=0;
+    waterTimer=setInterval(()=>{
+        if(finished)return;
+        water+=level.speed;
+        water=Math.round(water*100)/100;
+        updateWater();
+        if(water>level.target*1.25){
+            loseLevel();
+        }
+    },50);
+    timeTimer=setInterval(()=>{
+        if(finished)return;
+        const elapsed=(Date.now()-startTime)/1000;
+        const element=document.getElementById("timeCounter");
+        if(element){
+            element.innerHTML="⏱️ "+elapsed.toFixed(2)+" s";
+        }
+    },50);
+}
+
+function startWaterDrops(){
+    dropTimer=setInterval(()=>{
+        if(finished)return;
+        createWaterDrop();
+    },300);
+}
+
+function createWaterDrop(){
+    const game=document.querySelector(".game");
+    if(!game)return;
+    
+    const drop=document.createElement("div");
+    drop.className="water-drop";
+    drop.style.left=(Math.random()*100+25)+"%";
+    drop.style.top="150px";
+    drop.style.animationDuration=(2+Math.random()*2)+"s";
+    game.appendChild(drop);
+    
+    setTimeout(()=>{
+        if(drop.parentNode){
+            drop.parentNode.removeChild(drop);
+        }
+    },4000);
+}
+
+function createSplash(x,y){
+    const game=document.querySelector(".game");
+    if(!game)return;
+    
+    for(let i=0;i<5;i++){
+        const splash=document.createElement("div");
+        splash.className="splash";
+        splash.style.left=x+"px";
+        splash.style.top=y+"px";
+        splash.style.transform=`translate(${(Math.random()-0.5)*30}px,${(Math.random()-0.5)*30}px)`;
+        game.appendChild(splash);
+        
+        setTimeout(()=>{
+            if(splash.parentNode){
+                splash.parentNode.removeChild(splash);
+            }
+        },500);
+    }
+}
+
+function updateWater(){
+    const level=levels[currentLevel-1];
+    const counter=document.getElementById("waterCounter");
+    if(counter){
+        counter.innerHTML=`💧 ${water.toFixed(1)} / ${level.target} L`;
+    }
+    const progressBar=document.getElementById("progressInner");
+    if(progressBar){
+        const percent=Math.min((water/level.target)*100,100);
+        progressBar.style.width=percent+"%";
+        const diff=Math.abs(water-level.target);
+        const precision=1-(diff/level.target);
+        if(precision>=0.98){
+            progressBar.style.background="linear-gradient(90deg,#4caf50,#8bc34a)";
+        }else if(precision>=0.92){
+            progressBar.style.background="linear-gradient(90deg,#ffeb3b,#ffc107)";
+        }else{
+            progressBar.style.background="linear-gradient(90deg,#29b6f6,#0879d1)";
+        }
+    }
+    const visual=document.getElementById("waterVisual");
+    if(visual){
+        visual.style.height=Math.min(water/level.target*100,100)+"%";
+        if(water>0&&water%1<0.1){
+            createSplash(visual.offsetLeft+visual.offsetWidth/2,visual.offsetTop+visual.offsetHeight-visual.offsetHeight*(water/level.target));
+        }
+    }
+    const indicator=document.getElementById("precisionIndicator");
+    if(indicator){
+        const diff=Math.abs(water-level.target);
+        const precision=1-(diff/level.target);
+        if(precision>=0.98){
+            indicator.textContent="✅";
+            indicator.style.display="block";
+            indicator.style.color="#4caf50";
+        }else if(precision>=0.92){
+            indicator.textContent="⚠️";
+            indicator.style.display="block";
+            indicator.style.color="#ffeb3b";
+        }else{
+            indicator.style.display="none";
+        }
+    }
+}
+
+function stopWater(){
+    if(finished)return;
+    finished=true;
+    stopTimers();
+    const elapsed=(Date.now()-startTime)/1000;
+    calculateResult(elapsed);
+}
+
+function calculateResult(time){
+    const level=levels[currentLevel-1];
+    const target=level.target;
+    const difference=Math.abs(water-target);
+    const precision=Math.max(0,1-(difference/target));
+    let stars=0;
+    let points=0;
+    let title="";
+    let message="";
+    if(difference<=target*0.02){
+        stars=3;
+        points=100;
+        title="🎉 ¡PERFECTO!";
+        message="¡Gustavo controló el agua casi exactamente! Cada gota cuenta.";
+        createParticles();
+    }else if(difference<=target*0.08){
+        stars=2;
+        points=70;
+        title=" ¡MUY BIEN!";
+        message="Estuviste muy cerca. Puedes intentar mejorar tu precisión.";
+    }else if(water>=target*0.70&&water<=target*1.15){
+        stars=1;
+        points=35;
+        title="👍 ¡LO LOGRASTE!";
+        message="Conseguiste completar el reto, pero todavía puedes ahorrar más.";
+    }else if(water>target*1.15){
+        loseLevel();
+        return;
+    }else{
+        stars=0;
+        points=10;
+        title="💧 ¡FALTÓ AGUA!";
+        message="Gustavo no alcanzó la cantidad necesaria. Inténtalo nuevamente.";
+    }
+    registerProgress(stars,points);
+    showResult(stars,points,title,message,time);
+}
+
+function createParticles(){
+    const colors=["#4caf50","#8bc34a","#ffeb3b","#29b6f6"];
+    for(let i=0;i<20;i++){
+        const particle=document.createElement("div");
+        particle.className="particle";
+        particle.style.background=colors[Math.floor(Math.random()*colors.length)];
+        particle.style.left="50%";
+        particle.style.top="50%";
+        document.body.appendChild(particle);
+        const angle=Math.random()*Math.PI*2;
+        const velocity=50+Math.random()*100;
+        const tx=Math.cos(angle)*velocity;
+        const ty=Math.sin(angle)*velocity;
+        particle.animate([
+            {transform:"translate(-50%,-50%) scale(1)",opacity:1},
+            {transform:`translate(calc(-50% + ${tx}px),calc(-50% + ${ty}px)) scale(0)`,opacity:0}
+        ],{duration:1000,easing:"ease-out"});
+        setTimeout(()=>particle.remove(),1000);
+    }
+}
+
+function registerProgress(stars,points){
+    const index=currentLevel-1;
+    if(stars>progress.stars[index]){
+        progress.stars[index]=stars;
+    }
+    progress.points+=points;
+    if(progress.points>progress.best){
+        progress.best=progress.points;
+    }
+    if(stars>=1&&currentLevel<levels.length){
+        progress.unlocked=Math.max(progress.unlocked,currentLevel+1);
+    }
+    saveProgress();
+}
+
+function loseLevel(){
+    if(finished===false){
+        finished=true;
+    }
+    stopTimers();
+    const level=levels[currentLevel-1];
+    showLoseResult(level);
+}
+
+function showLoseResult(level){
+    document.getElementById("app").innerHTML=`
+    <div class="screen">
+        <div class="result">
+            <div class="result-icon">💦😱</div>
+            <h1 style="color:#e53935">¡TE PASASTE!</h1>
+            <div class="result-water">${water.toFixed(1)} / ${level.target} L</div>
+            <p>🎯 Objetivo: ${level.target} L</p>
+            <div class="result-stars">❌</div>
+            <div class="result-points" style="color:#e53935">+0 PUNTOS</div>
+            <div class="message">💦 ${level.message}<br><br>Intenta detener el agua antes.</div>
+            <button class="btn red" onclick="showTip(${currentLevel})">🔄 REINTENTAR</button>
+            <button class="btn blue" onclick="levelMap()">🗺️ MAPA</button>
+        </div>
+    </div>
+    `;
+}
+
+function showResult(stars,points,title,message,time){
+    const level=levels[currentLevel-1];
+    const next=currentLevel<levels.length&&progress.unlocked>=currentLevel+1;
+    let buttons=`
+        <button class="btn blue" onclick="showTip(${currentLevel})">🔄 REPETIR</button>
+        <button class="btn green" onclick="levelMap()">️ MAPA</button>
+    `;
+    if(next){
+        buttons=`
+        <button class="btn green" onclick="showTip(${currentLevel+1})">➡️ SIGUIENTE NIVEL</button>
+        <button class="btn blue" onclick="showTip(${currentLevel})">🔄 REPETIR</button>
+        <button class="btn orange" onclick="levelMap()">️ MAPA</button>
+        `;
+    }
+    document.getElementById("app").innerHTML=`
+    <div class="screen">
+        <div class="result">
+            <div class="result-icon">${stars===3?"😎":stars===2?"😃":"🙂"}</div>
+            <h1>${title}</h1>
+            <div class="result-water">${water.toFixed(1)} / ${level.target} L</div>
+            <p>💧 Agua utilizada</p>
+            <p>🎯 Objetivo: ${level.target} L</p>
+            <div class="result-stars">${starsText(stars)}</div>
+            <div class="result-points">+${points} PUNTOS</div>
+            <div class="message">${message}</div>
+            <p>⏱️ Tiempo: ${time.toFixed(2)} segundos</p>
+            <div style="margin-top:15px">${buttons}</div>
+        </div>
+    </div>
+    `;
+}
+
+function stopTimers(){
+    if(waterTimer){
+        clearInterval(waterTimer);
+        waterTimer=null;
+    }
+    if(timeTimer){
+        clearInterval(timeTimer);
+        timeTimer=null;
+    }
+    if(dropTimer){
+        clearInterval(dropTimer);
+        dropTimer=null;
+    }
+    const drops=document.querySelectorAll(".water-drop");
+    drops.forEach(drop=>{
+        if(drop.parentNode){
+            drop.parentNode.removeChild(drop);
+        }
+    });
+}
+
+function resetProgress(){
+    const ok=confirm("¿Quieres borrar todo el progreso de Gustavo?");
+    if(!ok)return;
+    localStorage.removeItem("retoGotaGustavo");
+    progress={unlocked:1,stars:Array(8).fill(0),points:0,best:0};
+    home();
+}
+
+loadProgress();
+home();
+</script>
+
+</body>
+</html>
