@@ -45,5 +45,5 @@ Todos los juegos están desarrollados con tecnologías web nativas. Para jugarlo
 
 ---
 <div align="center">
-  <sub>Desarrollado con 💚 y mucho ☕ por <b>[Tu Nombre]</b> | 2026</sub>
+  <sub>Desarrollado con 💚 y mucho ☕ por <b>Julio Mateo Bustillos Serrano</b> | 2026</sub>
 </div>
