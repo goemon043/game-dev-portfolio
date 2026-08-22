@@ -1,82 +1,76 @@
-<div align="center">
-
 # 🎮 ARITMAT+ - Aventura Matemática
 
-![Banner](banner/Aritmat+.png)
+## Descripción
 
-*¡Salta, resuelve operaciones matemáticas y aprende jugando!*
+**ARITMAT+** es un juego de plataformas educativo que combina la aventura de un caballero con el desafío de las matemáticas.
 
-### 🎥 Mira el juego en acción
+### ¿De qué trata?
+Un valiente caballero debe rescatar a una princesa atrapada en una torre. Para avanzar y demostrar su sabiduría, debe resolver operaciones matemáticas en tiempo real, seleccionando la plataforma correcta entre varias opciones.
 
-![Demo del Juego](banner/ARITMAT-AventuraMatemtica.gif)
+### ¿Cuál es el objetivo del jugador?
+Responder correctamente 10 operaciones matemáticas (suma, resta, multiplicación y división) seleccionando con el mouse la plataforma que contiene la respuesta correcta. El objetivo es obtener la mayor puntuación posible para rescatar exitosamente a la princesa.
 
-[🎮 Jugar Ahora](#) | [📖 Documentación](#) | [️ Descargar](#)
+### ¿Cuál es la mecánica principal?
+- Aparece una operación matemática en la parte superior de la pantalla
+- Cuatro plataformas muestran diferentes respuestas posibles
+- El jugador debe **hacer clic en la plataforma con la respuesta correcta**
+- El caballero salta automáticamente hacia la plataforma seleccionada
+- Feedback visual inmediato: ✅ verde si es correcto, ❌ rojo si es incorrecto
+- Sistema de puntuación: 1 punto por cada respuesta correcta (máximo 10/10)
 
-</div>
+## Género
 
----
+**Platformer** / **Educational** / **Arcade**
 
-## 📖 Sobre el Proyecto
+## Controles
 
-**ARITMAT+** es un juego de plataformas educativo diseñado para desafiar tu agilidad mental. El jugador debe navegar a través de un mundo dinámico donde cada decisión cuenta: para avanzar, deberás resolver operaciones matemáticas en tiempo real y seleccionar la plataforma correcta.
-
----
-
-## 🎯 Características Principales
-
-- 🧮 **Aprendizaje Activo:** Combina la adrenalina de los juegos de plataformas con el desafío de las matemáticas
-- ️ **Control Total con Mouse:** Jugabilidad intuitiva - solo apunta y haz clic para seleccionar la respuesta correcta
-- 🎮 **Dinámica Única:** Resolución de problemas mediante mecánicas de movimiento y selección
--  **Sistema de Puntuación:** Compite por la mejor puntuación y mejora tu récord
-- 📱 **Accesible:** Juega desde cualquier dispositivo con mouse o touchpad
-
----
-
-## 🎮 Cómo Jugar
-
-### Controles
 | Acción | Método |
 |--------|--------|
-| **Mover el personaje** | El juego se desarrolla automáticamente |
-| **Seleccionar respuesta** | Click del mouse en la plataforma correcta |
-| **Reiniciar juego** | Click en el botón de reinicio |
+| **Seleccionar respuesta** | Click del mouse en la plataforma |
+| **Mover el cursor** | Mouse |
 
-### Objetivo
-1. Observa la operación matemática que aparece
-2. Calcula mentalmente el resultado
-3. **Haz clic** en la plataforma con la respuesta correcta antes de que sea tarde
-4. ¡Acumula puntos y avanza de nivel!
+> **Nota:** El juego se juega **exclusivamente con el mouse**. No requiere teclado.
+
+## Capturas de pantalla
+
+### Pantalla inicial / Gameplay
+![Gameplay](banner/Aritmat+.png)
+*El caballero debe seleccionar la plataforma con la respuesta correcta*
+
+### Demo del juego
+![Demo](banner/ARITMAT-AventuraMatemtica.gif)
+*Resolución de operaciones matemáticas en tiempo real*
+
+### Respuesta incorrecta
+![Incorrecto](banner/aritmatincorrecto.png)
+*Feedback visual cuando se selecciona una plataforma incorrecta*
+
+### Pantalla de victoria
+![Victoria](banner/aritmatvictoria.png)
+*Pantalla final al completar las 10 preguntas con buena puntuación*
+
+### Pantalla de derrota
+![Game Over](banner/aritmatgameover.png)
+*Pantalla final cuando la puntuación es insuficiente para rescatar a la princesa*
+
+## Características Técnicas
+
+- **10 preguntas** generadas aleatoriamente
+- **4 operaciones**: suma (+), resta (-), multiplicación (×), división (÷)
+- **4 plataformas** de respuesta por pregunta
+- **Sistema de puntuación**: 0-10 puntos
+- **Feedback visual**: Animaciones y colores para respuestas correctas/incorrectas
+- **Múltiples finales**: Diferentes mensajes según la puntuación obtenida
+
+## Tecnologías
+
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- Google Fonts (Press Start 2P)
 
 ---
 
-## 🚀 Tecnologías Utilizadas
+**Desarrollado por:** [@goemon043](https://github.com/goemon043)
 
-<div align="center">
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Canvas API](https://img.shields.io/badge/Canvas-FF6B6B?style=for-the-badge&logo=html5&logoColor=white)
-
-</div>
-
----
-
-## 🛠️ Instalación y Uso
-
-### Opción 1: Jugar Online
-Simplemente abre el archivo `index.html` en tu navegador web.
-
-### Opción 2: Servidor Local
-```bash
-# Navega a la carpeta del proyecto
-cd AritmatPlus
-
-# Usa Python (si lo tienes instalado)
-python -m http.server 8000
-
-# O usa Node.js
-npx serve
-
-# Luego abre en tu navegador
-http://localhost:8000
+*¡Demuestra tu habilidad matemática y rescata a la princesa!*
