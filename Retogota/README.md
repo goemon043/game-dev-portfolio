@@ -1,91 +1,128 @@
-# 💧 Reto Gota
+# 💧 RETO GOTA - El Desafío de Gustavo Laura
 
-<div align="center">
-  <img src="assets/screenshot.png" alt="Captura de Reto Gota" width="80%">
-  <br>
-  <em>¡Cada gota cuenta! Ayuda a Gustavo a no desperdiciar agua.</em>
-</div>
+## Descripción
 
----
+**Reto Gota** es un juego educativo de precisión que enseña sobre el uso responsable del agua a través de situaciones cotidianas.
 
-## 📖 Descripción
-**Reto Gota** es un juego de precisión y timing (ritmo) con un fuerte mensaje educativo sobre el cuidado del agua. El jugador acompaña a Gustavo en 8 situaciones cotidianas donde debe detener el flujo de agua en el momento exacto para alcanzar la cantidad necesaria, ni una gota más.
+### ¿De qué trata?
+Gustavo Laura debe realizar 8 actividades diarias (desde llenar un vaso hasta lavar la bicicleta) utilizando exactamente la cantidad necesaria de agua. El agua comienza a fluir automáticamente y el jugador debe detenerla en el momento preciso para no desperdiciar ni usar de más. Cada nivel representa una situación real donde el consumo consciente del agua es importante.
 
-### 🎯 Objetivo del Jugador
-Completar los 8 niveles deteniendo el llenado del recipiente exactamente cuando el contador llegue a los litros objetivo, maximizando la precisión para obtener 3 estrellas en cada nivel.
+### ¿Cuál es el objetivo del jugador?
+Completar los 8 niveles deteniendo el flujo de agua exactamente cuando se alcance la cantidad objetivo mostrada en litros. El jugador debe desarrollar precisión y timing perfecto para obtener 3 estrellas en cada nivel, demostrando su habilidad para usar solo el agua necesaria.
 
-### 🎮 Mecánica Principal
-- El agua sube automáticamente a diferentes velocidades según la situación.
-- El jugador debe observar la barra de progreso y hacer clic (o tocar en móvil) en el momento preciso.
-- El juego evalúa la precisión: si te pasas o no llegas, pierdes el nivel o obtienes menos estrellas.
-- Incluye efectos visuales de gotas cayendo, salpicaduras y partículas de celebración.
+### ¿Cuál es la mecánica principal?
+- **Llenado automático**: El agua sube continuamente a diferentes velocidades según el nivel
+- **Precisión milimétrica**: Detener el agua exactamente en el target de litros
+- **Sistema de estrellas**:
+  - ⭐⭐⭐ **Perfecto**: Dentro del 2% del objetivo (±0.02)
+  - ⭐ **Muy bien**: Dentro del 8% del objetivo (±0.08)
+  - ⭐ **Aceptable**: Entre 70-115% del objetivo
+  - ❌ **Fallo**: Demasiada agua (>115%) o muy poca (<70%)
+- **8 niveles progresivos**: Cada uno con velocidad y objetivo diferentes
+- **Panel de progreso**: Muestra litros actuales, tiempo transcurrido y barra de progreso visual
+- **Indicador de precisión**: Emoji que aparece en tiempo real (✅ perfecto, ⚠️ cerca)
+- **Efectos visuales**: Gotas de agua cayendo, salpicaduras, partículas al ganar
+- **Guardado de progreso**: Estrellas y puntos se guardan en localStorage
 
-## 🏷️ Género
-`Timing` | `Precision` | `Educativo` | `Casual`
+## Género
 
-## 🎮 Controles
-- **MOUSE CLICK** o **TOUCH (Móvil)**: Detener el flujo de agua.
-- **Botones en pantalla**: Navegación por menús (Jugar, Mapa de niveles, Reintentar).
+**Educational** / **Precision** / **Arcade** / **Casual**
 
-## 📊 Mapa de Niveles
+## Controles
 
-| Nivel | Escenario | Objetivo | Velocidad | Consejo de Gustavo |
-|:---:|:---|:---:|:---:|:---|
-| **1** | 🥛 El vaso | 1 L | 🟢 Muy lenta | Detén el grifo apenas tengas lo necesario. |
-| **2** | 🚿 La ducha | 35 L | 🟡 Media | Una ducha más corta ahorra mucha agua. |
-| **3** | 🔧 La fuga | 15 L | 🟡 Media | Detectar y reparar fugas es clave. |
-| **4** | 👕 La lavadora | 50 L | 🔴 Rápida | Una carga bien organizada evita usar agua de más. |
-| **5** | 🍽️ La cocina | 12 L | 🟢 Lenta | Cierra el grifo mientras no lo uses. |
-| **6** | 🌱 Regar la planta | 5 L | 🟢 Lenta | La planta no necesita que dejemos correr el agua. |
-| **7** | 🚲 Lavar la bici | 15 L | 🟡 Media | No mantengas la manguera abierta mientras limpias. |
-| **8** | 💧 Gran desafío | 60 L | 🔥 Extrema | ¡Controla cada gota! Ya aprendiste a ahorrar. |
+| Acción | Método |
+|--------|--------|
+| **Detener el agua** | Click del mouse o toque en pantalla en el botón "DETENER" |
+| **Navegar menús** | Click en botones de interfaz |
 
-## ⭐ Sistema de Puntuación y Precisión
+> **Nota:** El juego se juega **exclusivamente con mouse o touch**. El timing es crucial.
 
-El juego evalúa qué tan cerca estuviste del objetivo (`target`):
+## Capturas de pantalla
+
+### Menú principal
+![Menú](banner/rgmenu.png)
+*Pantalla de inicio con Gustavo y opciones de juego*
+
+### Mapa de niveles
+![Niveles](banner/rgniveles.png)
+*Selección de los 8 niveles con sistema de estrellas desbloqueadas*
+
+### Demo del juego
+![Demo](banner/Reto%20Gota%20-%20Gustavo%20Laura.gif)
+*Gameplay mostrando el llenado del contenedor y detención precisa*
+
+### Victoria
+![Victoria](banner/rgvictoria.png)
+*Pantalla de éxito al completar un nivel con 3 estrellas*
+
+### Derrota / Te pasaste
+![Fallo](banner/rgfallo.png)
+*Pantalla de game over cuando se excede el límite de agua*
+
+## Niveles del Juego
+
+| Nivel | Actividad | Objetivo | Velocidad | Consejo |
+|-------|-----------|----------|-----------|---------|
+| **1** | 🥛 El vaso | 1 L | Lenta | Detén el grifo apenas tengas lo necesario |
+| **2** | 🚿 La ducha | 35 L | Rápida | Una ducha corta ahorra mucha agua |
+| **3** | 🔧 La fuga | 15 L | Media | Detectar fugas evita desperdicio |
+| **4** | 👕 La lavadora | 50 L | Muy rápida | Carga bien organizada = menos agua |
+| **5** | 🍽️ La cocina | 12 L | Media | Cierra el grifo mientras no usas agua |
+| **6** | 🌱 Regar la planta | 5 L | Lenta | Las plantas no necesitan agua de más |
+| **7** | 🚲 Lavar la bici | 15 L | Media | No mantengas la manguera abierta |
+| **8** | 💧 Gran desafío | 60 L | Extrema | ¡Controla cada gota! |
+
+## Características Técnicas
+
+- **8 niveles** con escenarios únicos y backgrounds diferentes
+- **Sistema de precisión**: Cálculo en tiempo real del porcentaje de exactitud
+- **Progresión guardada**: Estrellas (0-3 por nivel) y puntos totales en localStorage
+- **Efectos visuales**: 
+  - Gotas de agua animadas cayendo
+  - Salpicaduras al llenar
+  - Partículas celebratorias al obtener 3 estrellas
+  - Indicador de precisión en tiempo real
+- **Barra de progreso**: Cambia de color según la precisión (azul → amarillo → verde)
+- **Responsive**: Adaptable a diferentes tamaños de pantalla
+- **Personaje animado**: Gustavo con animación de acción continua
+
+## Sistema de Puntuación
 
 | Precisión | Estrellas | Puntos | Mensaje |
-|-----------|:---:|:---:|:---|
-| **98% - 100%** (Diferencia ≤ 2%) | ⭐⭐⭐ | +100 | 🎉 ¡PERFECTO! |
-| **92% - 97%** (Diferencia ≤ 8%) | ⭐⭐ | +70 | 😃 ¡MUY BIEN! |
-| **70% - 115%** | ⭐ | +35 | 👍 ¡LO LOGRASTE! |
-| **< 70%** | ☆ | +10 | 💧 ¡FALTÓ AGUA! |
-| **> 115%** | ❌ | 0 | 😱 ¡TE PASASTE! (Game Over del nivel) |
+|-----------|-----------|--------|---------|
+| 98-100% | ⭐⭐⭐ | 100 pts | "¡Perfecto!" |
+| 92-97% | ⭐⭐ | 70 pts | "¡Muy bien!" |
+| 70-91% o 101-115% | ⭐ | 35 pts | "¡Lo lograste!" |
+| <70% o >115% | ❌ | 0 pts | Game Over |
 
-*Nota: El progreso (estrellas y puntos) se guarda automáticamente en el `localStorage` del navegador.*
+## Tecnologías
 
-## 💻 Tecnologías Utilizadas
-- **HTML5** - Estructura semántica y contenedores del juego.
-- **CSS3** - Diseño responsive, animaciones complejas (`@keyframes` para gotas, salpicaduras, partículas y flotación), gradientes y sombras.
-- **JavaScript (Vanilla)** - Lógica de temporizadores (`setInterval`), cálculo de precisión en tiempo real, manipulación del DOM y persistencia de datos (`localStorage`).
-- **Pixel Art** - Sprites del personaje y fondos generados con asistencia de IA y adaptados manualmente.
-
-### 🤖 Uso de IA
-- Generación de conceptos base para los sprites del personaje (Gustavo) y fondos de escenarios.
-- Optimización de funciones de cálculo de precisión y generación de partículas visuales.
-- Asistencia en la estructuración de la lógica de estados del juego (menú, juego, resultado).
-
-## 🧠 Aprendizajes y Mejoras
-
-### ✅ Qué aprendí
-- Implementación de mecánicas de **timing preciso** con evaluación de márgenes de error.
-- Uso de **`localStorage`** para crear un sistema de progreso persistente (niveles desbloqueados, estrellas, puntos).
-- Creación de **sistemas de partículas** con JavaScript puro y animaciones CSS para feedback visual (celebración al ganar).
-- Diseño de interfaces **responsive** que funcionan tanto en escritorio como en dispositivos móviles (touch events).
-- Gestión de múltiples estados de UI (pantalla de inicio, mapa de niveles, consejos, gameplay, resultados).
-
-### 🔧 Aspectos a mejorar
-- **Audio:** Implementar la Web Audio API para agregar efectos de sonido (agua corriendo, gotas, clic, celebración) y música ambiental.
-- **Gameplay:** Agregar un modo "Contrarreloj" o desafíos aleatorios una vez completados los 8 niveles.
-- **Visual:** Transiciones más suaves (fade in/out) entre el mapa de niveles y el gameplay.
-- **Accesibilidad:** Opción para aumentar el tamaño de la zona segura (safe zone) para jugadores con dificultades motoras.
-
-## 🌍 Impacto Educativo
-Cada nivel incluye un **"Consejo de Gustavo"** y un mensaje post-nivel que refuerza hábitos reales de ahorro de agua:
-- Cerrar el grifo al lavarse los dientes o enjabonarse.
-- Detectar fugas invisibles en el hogar.
-- Usar la cantidad justa de agua para regar o limpiar.
-- La importancia de cada litro en el contexto global del cuidado del planeta.
+- HTML5
+- CSS3 (con animaciones y gradientes)
+- JavaScript (Vanilla)
+- LocalStorage API (guardado de progreso)
+- Canvas API (efectos de partículas)
 
 ---
-[⬅ Volver al Portafolio Principal](../README.md)
+
+**Desarrollado por:** [@goemon043](https://github.com/goemon043)
+
+**Personaje principal:** Gustavo Laura
+
+*¡Cada gota cuenta! Aprende a usar el agua responsablemente.*
+
+---
+
+### 🌍 Mensaje Educativo
+
+El juego enseña 8 situaciones cotidianas donde podemos ahorrar agua:
+- Usar solo el agua necesaria en cada actividad
+- Cerrar el grifo mientras no se usa
+- Detectar y reparar fugas
+- Duchas más cortas
+- Riego eficiente de plantas
+- Lavado consciente de ropa y objetos
+
+---
+
+*💧 Objetivo: 35 litros | ⏱️ Precisión: 0.02s |  8 niveles de conciencia ambiental*
