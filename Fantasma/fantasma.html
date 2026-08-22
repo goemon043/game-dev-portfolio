@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👻 FANTASMA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background: #000;
+            border: 4px solid #333;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        #startScreen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+        }
+
+        #startScreen h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+            color: #7dd3fc;
+        }
+
+        #startScreen .subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        #startScreen .controls-box {
+            background: rgba(0,0,0,0.6);
+            border: 3px solid #7dd3fc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        #startScreen .controls-box h2 {
+            color: #7dd3fc;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            font-size: 18px;
+        }
+
+        .control-key {
+            background: #1e3a5f;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 2px solid #7dd3fc;
+            font-weight: bold;
+        }
+
+        #startBtn {
+            padding: 20px 60px;
+            font-size: 24px;
+            background: linear-gradient(135deg, #7dd3fc, #3b82f6);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(125, 211, 252, 0.4);
+            transition: all 0.3s;
+        }
+
+        #startBtn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(125, 211, 252, 0.6);
+        }
+
+        #startBtn:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+
+        #loadingStatus {
+            margin-top: 15px;
+            color: #7dd3fc;
+            font-size: 14px;
+        }
+
+        #messageBox {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid #7dd3fc;
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            display: none;
+            z-index: 100;
+        }
+
+        #messageBox .speaker {
+            font-weight: bold;
+            color: #7dd3fc;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        #messageBox .text {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        #messageBox .options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #messageBox .option-btn {
+            padding: 12px 24px;
+            background: #1e3a5f;
+            border: 2px solid #7dd3fc;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        #messageBox .option-btn:hover {
+            background: #7dd3fc;
+            color: #000;
+        }
+
+        #phoneNotif {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #7dd3fc;
+            border-radius: 10px;
+            padding: 10px 15px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 50;
+            display: none;
+        }
+
+        #phoneNotif:hover {
+            background: rgba(30, 58, 95, 0.9);
+        }
+
+        #phoneNotif .count {
+            background: #e74c3c;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+
+        #messagePanel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            max-height: 600px;
+            background: rgba(20, 20, 20, 0.98);
+            border: 3px solid #7dd3fc;
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            display: none;
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        #messagePanel h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #7dd3fc;
+        }
+
+        .msg-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .msg-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .msg-item .sender {
+            font-weight: bold;
+            color: #7dd3fc;
+            margin-bottom: 5px;
+        }
+
+        .msg-item .preview {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .msg-item.unread {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .msg-item.bully {
+            border-left: 4px solid #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        #endScreen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+        }
+
+        #endScreen .end-text {
+            color: white;
+            font-size: 28px;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        #interactHint {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #7dd3fc;
+            border-radius: 25px;
+            padding: 12px 25px;
+            color: white;
+            font-size: 18px;
+            display: none;
+            z-index: 50;
+        }
+
+        #interactHint .key {
+            background: #7dd3fc;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        #timeHUD {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #7dd3fc;
+            border-radius: 10px;
+            padding: 12px 18px;
+            color: white;
+            font-size: 16px;
+            z-index: 50;
+        }
+
+        #timeBar {
+            width: 180px;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        #timeFill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f1c40f, #e74c3c);
+            transition: width 0.5s;
+        }
+
+        #controlsPanel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid #7dd3fc;
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            display: none;
+            z-index: 250;
+            min-width: 400px;
+        }
+
+        #controlsPanel h2 {
+            color: #7dd3fc;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #controlsPanel .close-hint {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        #exitHint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(125, 211, 252, 0.9);
+            border: 3px solid #fff;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+            display: none;
+            z-index: 60;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        #debugIndicator {
+            position: absolute;
+            top: 20px;
+            right: 150px;
+            background: rgba(255, 200, 0, 0.9);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 8px 15px;
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+            z-index: 50;
+        }
+
+        #moodIndicator {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #555;
+            border-radius: 10px;
+            padding: 8px 12px;
+            color: #888;
+            font-size: 12px;
+            z-index: 50;
+            transition: all 0.5s;
+        }
+
+        #ghostDialogue {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(155, 48, 255, 0.15);
+            border: 2px solid #9B30FF;
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: #E0B0FF;
+            font-size: 16px;
+            max-width: 600px;
+            text-align: center;
+            display: none;
+            z-index: 55;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="1280" height="720"></canvas>
+        
+        <div id="startScreen">
+            <h1>👻 FANTASMA</h1>
+            <div class="subtitle">Un día que cambiará todo...</div>
+            
+            <div class="controls-box">
+                <h2>🎮 CONTROLES</h2>
+                <div class="control-item">
+                    <span>Mover personaje</span>
+                    <span class="control-key">W A S D / Flechas</span>
+                </div>
+                <div class="control-item">
+                    <span>Interactuar con NPCs/Objetos</span>
+                    <span class="control-key">E</span>
+                </div>
+                <div class="control-item">
+                    <span>Abrir mensajes del celular</span>
+                    <span class="control-key">M</span>
+                </div>
+                <div class="control-item">
+                    <span>Ver controles durante el juego</span>
+                    <span class="control-key">I</span>
+                </div>
+                <div class="control-item">
+                    <span>Mostrar/Ocultar colisiones (debug)</span>
+                    <span class="control-key">F1</span>
+                </div>
+                <div class="control-item">
+                    <span>Cerrar diálogos/paneles</span>
+                    <span class="control-key">ESC</span>
+                </div>
+            </div>
+            
+            <button id="startBtn" disabled>Cargando assets...</button>
+            <div id="loadingStatus">Cargando imágenes...</div>
+        </div>
+
+        <div id="timeHUD">
+            <div>🌅 <span id="timeText">Mañana</span></div>
+            <div id="timeBar"><div id="timeFill"></div></div>
+        </div>
+
+        <div id="moodIndicator">
+            <span id="moodText">😐 Neutral</span>
+        </div>
+
+        <div id="ghostDialogue"></div>
+        <div id="debugIndicator">🔧 DEBUG ACTIVO</div>
+
+        <div id="phoneNotif">
+            📱 Mensajes <span class="count" id="msgCount">0</span>
+        </div>
+
+        <div id="interactHint">
+            Interactuar <span class="key">E</span>
+        </div>
+
+        <div id="exitHint">
+            🚪 Presiona E para salir
+        </div>
+
+        <div id="messageBox">
+            <div class="speaker" id="msgSpeaker"></div>
+            <div class="text" id="msgText"></div>
+            <div class="options" id="msgOptions"></div>
+        </div>
+
+        <div id="messagePanel">
+            <h2>📱 Mensajes</h2>
+            <div id="msgList"></div>
+        </div>
+
+        <div id="controlsPanel">
+            <h2>🎮 CONTROLES</h2>
+            <div class="control-item">
+                <span>Mover personaje</span>
+                <span class="control-key">W A S D / Flechas</span>
+            </div>
+            <div class="control-item">
+                <span>Interactuar</span>
+                <span class="control-key">E</span>
+            </div>
+            <div class="control-item">
+                <span>Mensajes del celular</span>
+                <span class="control-key">M</span>
+            </div>
+            <div class="control-item">
+                <span>Debug colisiones</span>
+                <span class="control-key">F1</span>
+            </div>
+            <div class="control-item">
+                <span>Cerrar paneles</span>
+                <span class="control-key">ESC</span>
+            </div>
+            <div class="close-hint">Presiona I o ESC para cerrar</div>
+        </div>
+
+        <div id="endScreen">
+            <div class="end-text" id="endText"></div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const GAME_DURATION = 600;
+        let gameTime = 0;
+        let lastTime = Date.now();
+        let debugMode = false;
+        let assetsLoaded = false;
+        let audioCtx = null;
+
+        const gameState = {
+            currentScene: 'aula',
+            timeOfDay: 0,
+            trust: 30,
+            player: {
+                x: 380,
+                y: 400,
+                width: 50,
+                height: 70,
+                baseSpeed: 4,
+                speed: 4,
+                direction: 'down',
+                isMoving: false,
+                animFrame: 0,
+                animTimer: 0
+            },
+            messages: [],
+            unreadMessages: 0,
+            gamePhase: 'start',
+            keys: {},
+            ghostFound: false,
+            ghostPosition: { x: 580, y: 320, scene: 'patio' },
+            currentExit: null,
+            lastFloorType: null,
+            isPlayingFootstep: false,
+            objectives: {
+                alex: { task1: false, task2: false },
+                sam: { task1: false, task2: false },
+                profesor: { task1: false, task2: false },
+                mama: { task1: false, task2: false }
+            },
+            messagesIgnored: 0,
+            bullyMessagesReceived: 0,
+            ghostDialogueCooldown: 0,
+            lastGhostDialogue: '',
+            ghostTriggered: {
+                lowTrust: false,
+                veryLowTrust: false,
+                ignoringMessages: false,
+                completedObjectives: false,
+                bullyResponse: false,
+                goodChoice: false
+            },
+            ghostConversation: {
+                active: false,
+                currentStep: 0,
+                steps: []
+            }
+        };
+
+        const assets = {
+            scenes: {},
+            player: {},
+            npcs: {},
+            ghost: null,
+            endings: {},
+            sounds: {}
+        };
+
+        function loadImage(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => {
+                    console.warn('No se pudo cargar:', src);
+                    resolve(null);
+                };
+                img.src = src;
+            });
+        }
+
+        function loadAudio(src) {
+            try {
+                const audio = new Audio(src);
+                return audio;
+            } catch(e) {
+                return null;
+            }
+        }
+
+        async function loadAllAssets() {
+            const statusEl = document.getElementById('loadingStatus');
+            const btn = document.getElementById('startBtn');
+
+            const scenes = ['aula', 'biblioteca', 'patio', 'cuarto'];
+            const times = ['', 'atardecer', 'noche'];
+            
+            for (const scene of scenes) {
+                assets.scenes[scene] = {};
+                for (const time of times) {
+                    const sceneName = scene.charAt(0).toUpperCase() + scene.slice(1);
+                    const filename = time === '' ? `${sceneName}.png` : `${sceneName}${time}.png`;
+                    const img = await loadImage(`assets/${filename}`);
+                    assets.scenes[scene][time || 'day'] = img;
+                }
+            }
+            statusEl.textContent = 'Escenarios cargados...';
+
+            assets.player.front = await loadImage('assets/Playerfrente.png');
+            assets.player.walkUp = await loadImage('assets/player-iso_walk_up-trimmed.png');
+            assets.player.walkSide = await loadImage('assets/player-walk-trimmed.png');
+            assets.player.walkDown = [];
+            for (let i = 1; i <= 12; i++) {
+                const img = await loadImage(`assets/caminar/${i}.png`);
+                assets.player.walkDown.push(img);
+            }
+            statusEl.textContent = 'Jugador cargado...';
+
+            for (let i = 1; i <= 4; i++) {
+                assets.npcs[`npc${i}`] = await loadImage(`assets/Npc${i}.png`);
+            }
+            statusEl.textContent = 'NPCs cargados...';
+
+            assets.ghost = await loadImage('assets/fantasma.png');
+            assets.endings.good = await loadImage('assets/finalbueno.png');
+            assets.endings.regular = await loadImage('assets/finalregular.png');
+            assets.endings.bad = await loadImage('assets/Final.png');
+            statusEl.textContent = 'Finales cargados...';
+
+            assets.sounds.music = loadAudio('assets/Blue-and-Sentimental-_NPO_.mp3');
+            if (assets.sounds.music) { assets.sounds.music.loop = true; assets.sounds.music.volume = 0.3; }
+            assets.sounds.wood = loadAudio('assets/PisoMadera.mp3');
+            if (assets.sounds.wood) assets.sounds.wood.volume = 0.4;
+            assets.sounds.grass = loadAudio('assets/PisoPasto.mp3');
+            if (assets.sounds.grass) assets.sounds.grass.volume = 0.4;
+
+            assetsLoaded = true;
+            statusEl.textContent = '✅ ¡Assets cargados!';
+            btn.disabled = false;
+            btn.textContent = '▶ COMENZAR';
+        }
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playNotificationSound() {
+            if (!audioCtx) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+            oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.3);
+        }
+
+        const collisions = {
+            aula: [
+                { x: 0, y: 0, w: 1280, h: 40 },
+                { x: 0, y: 680, w: 1280, h: 40 },
+                { x: 0, y: 0, w: 40, h: 720 },
+                { x: 1240, y: 0, w: 40, h: 720 },
+                { x: 40, y: 40, w: 320, h: 80 },
+                { x: 40, y: 120, w: 280, h: 80 },
+                { x: 40, y: 200, w: 240, h: 80 },
+                { x: 40, y: 280, w: 200, h: 80 },
+                { x: 40, y: 360, w: 160, h: 80 },
+                { x: 40, y: 440, w: 120, h: 80 },
+                { x: 40, y: 520, w: 80, h: 80 },
+                { x: 40, y: 600, w: 60, h: 80 },
+                { x: 460, y: 230, w: 90, h: 60 },
+                { x: 660, y: 230, w: 90, h: 60 },
+                { x: 860, y: 230, w: 90, h: 60 },
+                { x: 460, y: 370, w: 90, h: 60 },
+                { x: 660, y: 370, w: 90, h: 60 },
+                { x: 860, y: 370, w: 90, h: 60 },
+                { x: 460, y: 510, w: 90, h: 60 },
+                { x: 660, y: 510, w: 90, h: 60 },
+                { x: 860, y: 510, w: 90, h: 60 },
+            ],
+            biblioteca: [
+                { x: 0, y: 0, w: 1280, h: 40 },
+                { x: 0, y: 680, w: 1280, h: 40 },
+                { x: 0, y: 0, w: 40, h: 720 },
+                { x: 1240, y: 0, w: 40, h: 720 },
+                { x: 80, y: 80, w: 180, h: 100 },
+                { x: 1020, y: 80, w: 180, h: 100 },
+                { x: 80, y: 260, w: 180, h: 100 },
+                { x: 1020, y: 260, w: 180, h: 100 },
+                { x: 520, y: 400, w: 240, h: 110 },
+            ],
+            patio: [
+                { x: 0, y: 0, w: 1280, h: 40 },
+                { x: 0, y: 680, w: 1280, h: 40 },
+                { x: 0, y: 0, w: 40, h: 720 },
+                { x: 1240, y: 0, w: 40, h: 720 },
+                { x: 60, y: 40, w: 160, h: 160 },
+                { x: 1060, y: 40, w: 160, h: 160 },
+                { x: 60, y: 520, w: 160, h: 160 },
+                { x: 1060, y: 520, w: 160, h: 160 },
+                { x: 340, y: 240, w: 90, h: 90 },
+                { x: 850, y: 240, w: 120, h: 90 },
+                { x: 520, y: 180, w: 240, h: 100 },
+            ],
+            cuarto: [
+                { x: 0, y: 0, w: 1280, h: 40 },
+                { x: 0, y: 680, w: 1280, h: 40 },
+                { x: 0, y: 0, w: 40, h: 720 },
+                { x: 1240, y: 0, w: 40, h: 720 },
+                { x: 180, y: 80, w: 200, h: 220 },
+                { x: 520, y: 280, w: 280, h: 160 },
+                { x: 620, y: 460, w: 80, h: 80 },
+            ]
+        };
+
+        const exits = {
+            aula: [
+                { x: 580, y: 40, w: 120, h: 100, target: 'biblioteca', spawnX: 600, spawnY: 600, label: 'Biblioteca' },
+                { x: 1140, y: 280, w: 100, h: 120, target: 'patio', spawnX: 80, spawnY: 340, label: 'Patio' },
+            ],
+            biblioteca: [
+                { x: 580, y: 580, w: 120, h: 100, target: 'aula', spawnX: 600, spawnY: 100, label: 'Curso' },
+            ],
+            patio: [
+                { x: 40, y: 280, w: 100, h: 120, target: 'aula', spawnX: 1150, spawnY: 340, label: 'Curso' },
+                { x: 1140, y: 280, w: 100, h: 120, target: 'cuarto', spawnX: 80, spawnY: 340, label: 'Cuarto' },
+            ],
+            cuarto: [
+                { x: 40, y: 280, w: 100, h: 120, target: 'patio', spawnX: 1150, spawnY: 340, label: 'Patio' },
+            ]
+        };
+
+        // NPCs con tamaños REDUCIDOS (mismo tamaño visual que el personaje)
+        const npcs = {
+            alex: {
+                name: 'Alex', scene: 'aula', x: 950, y: 400, 
+                width: 90, height: 140,
+                sprite: 'npc1',
+                color: '#3498db',
+                dialogues: [
+                    { text: "¿Estás bien? Te vi raro hoy...", options: [
+                        { text: "Sí, estoy bien", trust: -8, next: null, objective: null },
+                        { text: "No mucho...", trust: 12, next: 'alex2', objective: 'task1' },
+                        { text: "Me están molestando", trust: 18, next: 'alex2', objective: 'task1' }
+                    ]},
+                    { id: 'alex2', text: "Si necesitas algo, aquí estoy. ¿Me acompañas un rato?", options: [
+                        { text: "Gracias, pero puedo solo", trust: -12, next: null, objective: null },
+                        { text: "¿Me acompañas?", trust: 15, next: null, objective: 'task2' }
+                    ]}
+                ],
+                currentDialogue: 0, talked: false
+            },
+            sam: {
+                name: 'Sam', scene: 'biblioteca', x: 700, y: 440,
+                width: 90, height: 140,
+                sprite: 'npc2',
+                color: '#2ecc71',
+                dialogues: [
+                    { text: "¿Buscas algo en particular? Tengo un libro que me ayudó...", options: [
+                        { text: "No, solo miro", trust: -8, next: null, objective: null },
+                        { text: "¿Tienes algo que me ayude?", trust: 12, next: 'sam2', objective: 'task1' }
+                    ]},
+                    { id: 'sam2', text: "Este libro me ayudó. ¿Tú también fuiste acosada?", options: [
+                        { text: "No quiero hablar de eso", trust: -10, next: null, objective: null },
+                        { text: "Sí... ¿cómo lo superaste?", trust: 15, next: null, objective: 'task2' }
+                    ]}
+                ],
+                currentDialogue: 0, talked: false
+            },
+            profesor: {
+                name: 'Profesor Martín', scene: 'biblioteca', x: 900, y: 420,
+                width: 95, height: 145,
+                sprite: 'npc3',
+                color: '#9b59b6',
+                dialogues: [
+                    { text: "¿Necesitas ayuda con algo? Te noto preocupado.", options: [
+                        { text: "No, gracias", trust: -10, next: null, objective: null },
+                        { text: "Profesor, necesito hablar con alguien", trust: 15, next: 'prof2', objective: 'task1' }
+                    ]},
+                    { id: 'prof2', text: "Esto es serio. ¿Quieres que hablemos con orientación?", options: [
+                        { text: "No, no quiero problemas", trust: -18, next: null, objective: null },
+                        { text: "Sí, por favor", trust: 20, next: null, objective: 'task2' }
+                    ]}
+                ],
+                currentDialogue: 0, talked: false
+            },
+            mama: {
+                name: 'Mamá', scene: 'cuarto', x: 700, y: 430,
+                width: 90, height: 140,
+                sprite: 'npc4',
+                color: '#e74c3c',
+                dialogues: [
+                    { text: "¿Cómo estuvo tu día, hijo?", options: [
+                        { text: "Bien, normal", trust: -10, next: null, objective: null },
+                        { text: "Más o menos...", trust: 8, next: 'mama2', objective: 'task1' },
+                        { text: "Mamá, necesito contarte algo", trust: 15, next: 'mama2', objective: 'task1' }
+                    ]},
+                    { id: 'mama2', text: "¿Qué pasa? Puedes contarme cualquier cosa.", options: [
+                        { text: "Nada, estoy cansado", trust: -15, next: null, objective: null },
+                        { text: "Me están haciendo bullying", trust: 22, next: null, objective: 'task2' }
+                    ]}
+                ],
+                currentDialogue: 0, talked: false
+            }
+        };
+
+        const ghostConversations = {
+            firstMeeting: [
+                { text: "Hola... soy tu fantasma. No estoy aquí para asustarte.", options: [
+                    { text: "¿Quién eres?", next: 1 }, { text: "¿Qué quieres?", next: 1 }
+                ]},
+                { text: "Soy la parte de ti que aún quiere luchar. La que no se rinde.", options: [
+                    { text: "No te necesito", next: 2 }, { text: "¿Por qué apareces ahora?", next: 2 }
+                ]},
+                { text: "Porque hoy es un día difícil. Y los días difíciles no se enfrentan solos.", options: [
+                    { text: "Gracias...", trust: 10, next: null }
+                ]}
+            ],
+            lowTrust: [
+                { text: "Te veo cada vez más cansado... ¿Qué está pasando?", options: [
+                    { text: "No quiero hablar de eso", next: 1 }, { text: "Me siento muy solo", next: 1 }
+                ]},
+                { text: "El aislamiento es una trampa. Pero aún puedes salir de ella.", options: [
+                    { text: "¿Cómo?", next: 2 }, { text: "No creo que pueda", next: 2 }
+                ]},
+                { text: "Un paso a la vez. Habla con alguien. Ellos quieren ayudarte.", options: [
+                    { text: "Lo intentaré", trust: 8, next: null }
+                ]}
+            ],
+            veryLowTrust: [
+                { text: "Te estoy perdiendo... ¿Todavía recuerdas quién eres?", options: [
+                    { text: "No...", next: 1 }, { text: "Sí, pero duele", next: 1 }
+                ]},
+                { text: "El dolor es temporal. No dejes que ellos ganen.", options: [
+                    { text: "¿Qué puedo hacer?", next: 2 }, { text: "Ya es muy tarde", next: 2 }
+                ]},
+                { text: "Nunca es muy tarde. Busca ayuda. Necesitas a personas reales.", options: [
+                    { text: "Tienes razón", trust: 12, next: null }
+                ]}
+            ],
+            progress: [
+                { text: "Veo que estás hablando con las personas correctas.", options: [
+                    { text: "Es difícil abrirse", next: 1 }, { text: "¿Crees que funcione?", next: 1 }
+                ]},
+                { text: "Cada conversación te hace más fuerte. Da el siguiente paso.", options: [
+                    { text: "Gracias por estar aquí", trust: 5, next: null }
+                ]}
+            ],
+            goodProgress: [
+                { text: "Me enorgulleces. Estás haciendo lo correcto.", options: [
+                    { text: "Aún tengo miedo", next: 1 }, { text: "¿Y si no funciona?", next: 1 }
+                ]},
+                { text: "El coraje es actuar a pesar del miedo. Y tú lo estás haciendo.", options: [
+                    { text: "Gracias", trust: 8, next: null }
+                ]}
+            ],
+            ignoringMessages: [
+                { text: "Veo que no abres los mensajes... ¿Por qué?", options: [
+                    { text: "Me dan miedo", next: 1 }, { text: "No quiero ver más cosas malas", next: 1 }
+                ]},
+                { text: "Ignorar no hace que desaparezcan. Es mejor enfrentarlos.", options: [
+                    { text: "Tienes razón", trust: 5, next: null }
+                ]}
+            ],
+            generic: [
+                { text: "¿Cómo te sientes?", options: [
+                    { text: "Más o menos", next: 1 }, { text: "Mal", next: 1 }, { text: "Bien", next: 1 }
+                ]},
+                { text: "Recuerda: no estás solo. Hay personas que se preocupan por ti.", options: [
+                    { text: "Lo recordaré", trust: 3, next: null }
+                ]}
+            ]
+        };
+
+        const bullyMessages = [
+            { sender: ' Grupo del colegio', text: 'Jajaja hoy te vimos llorar 😂😂', options: [
+                { text: 'Déjenme en paz', trust: -8 }, { text: 'Responder insulto', trust: -20 }, { text: 'Bloquear y reportar', trust: 8 }
+            ]},
+            { sender: '😈 Grupo del colegio', text: 'Nadie te quiere aquí, mejor desaparece', options: [
+                { text: 'Responder agresivamente', trust: -20 }, { text: 'Ignorar', trust: -5 }, { text: 'Bloquear', trust: 10 }
+            ]},
+            { sender: ' Anónimo', text: 'Eres un fracaso, todos lo saben', options: [
+                { text: 'Llorar', trust: -10 }, { text: 'Ignorar', trust: -3 }, { text: 'Contarle a alguien', trust: 12 }
+            ]},
+            { sender: '😈 Compañero', text: 'Subí una foto tuya al grupo. Todos se rieron ', options: [
+                { text: 'Pedir que la borren', trust: 5 }, { text: 'Insultarlo', trust: -18 }, { text: 'No hacer nada', trust: -12 }
+            ]},
+            { sender: ' Grupo del colegio', text: '¿Por qué no te cambias de escuela? Nadie te aguanta', options: [
+                { text: 'Responder "ya me voy"', trust: -15 }, { text: 'Ignorar', trust: -5 }, { text: 'Guardar evidencia', trust: 10 }
+            ]},
+            { sender: '😈 Anónimo', text: 'Tu vida no vale nada. Deberías desaparecer.', options: [
+                { text: 'Llorar en silencio', trust: -15 }, { text: 'Buscar ayuda', trust: 15 }, { text: 'Ignorar', trust: -8 }
+            ]},
+            { sender: ' Compañero', text: 'Te vimos hablando solo. Estás loco jaja', options: [
+                { text: 'Explicar que hablo con el fantasma', trust: -10 }, { text: 'Ignorar', trust: -5 }, { text: 'Contarle al profesor', trust: 12 }
+            ]},
+            { sender: '😈 Grupo del colegio', text: 'Mañana te vamos a esperar a la salida. Prepárate.', options: [
+                { text: 'Tener miedo', trust: -12 }, { text: 'Contarle a mamá', trust: 15 }, { text: 'No ir a la escuela', trust: -10 }
+            ]}
+        ];
+
+        const supportMessages = [
+            { sender: '👤 Alex', text: '¿Estás bien? Te noto raro hoy', options: [
+                { text: 'Estoy bien', trust: -5 }, { text: 'No quiero hablar', trust: -8 }, { text: 'La verdad no estoy bien', trust: 12 }
+            ]},
+            { sender: ' Desconocido', text: 'No estás solo. Pide ayuda.', options: [
+                { text: 'Ignorar', trust: -5 }, { text: '¿Quién eres?', trust: 3 }, { text: 'Gracias, lo necesito', trust: 10 }
+            ]},
+            { sender: '👩 Mamá', text: 'Hijo, ¿cómo va todo? Te quiero.', options: [
+                { text: 'Todo bien', trust: -8 }, { text: 'No contestar', trust: -12 }, { text: 'Mamá, necesito hablar', trust: 18 }
+            ]},
+            { sender: '📞 Línea de ayuda', text: 'Si necesitas hablar, estamos aquí. 24/7.', options: [
+                { text: 'Guardar número', trust: 12 }, { text: 'Ignorar', trust: -3 }
+            ]}
+        ];
+
+        function spawnMessage() {
+            if (gameState.messages.length >= 8) return;
+            const isBully = Math.random() < 0.7;
+            const templateList = isBully ? bullyMessages : supportMessages;
+            const template = templateList[Math.floor(Math.random() * templateList.length)];
+            
+            const msg = {
+                ...template,
+                id: Date.now(),
+                time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+                read: false, responded: false, isBully: isBully
+            };
+            
+            gameState.messages.push(msg);
+            gameState.unreadMessages++;
+            if (isBully) gameState.bullyMessagesReceived++;
+            
+            playNotificationSound();
+            updateMessageUI();
+        }
+
+        function updateMessageUI() {
+            const notif = document.getElementById('phoneNotif');
+            const count = document.getElementById('msgCount');
+            if (gameState.unreadMessages > 0) {
+                notif.style.display = 'block';
+                count.textContent = gameState.unreadMessages;
+            } else {
+                notif.style.display = 'none';
+            }
+        }
+
+        function openMessagePanel() {
+            const panel = document.getElementById('messagePanel');
+            const list = document.getElementById('msgList');
+            list.innerHTML = '';
+            gameState.messages.forEach(msg => {
+                const item = document.createElement('div');
+                item.className = `msg-item ${!msg.read ? 'unread' : ''} ${msg.isBully ? 'bully' : ''}`;
+                item.innerHTML = `<div class="sender">${msg.sender} - ${msg.time}</div><div class="preview">${msg.text}</div>`;
+                item.onclick = () => openMessage(msg);
+                list.appendChild(item);
+            });
+            panel.style.display = 'block';
+        }
+
+        function openMessage(msg) {
+            document.getElementById('messagePanel').style.display = 'none';
+            if (!msg.read) { msg.read = true; gameState.unreadMessages--; updateMessageUI(); }
+            if (msg.responded) return;
+            
+            showDialogue(msg.sender, msg.text, msg.options.map(opt => ({
+                text: opt.text,
+                action: () => {
+                    gameState.trust = Math.max(0, Math.min(100, gameState.trust + opt.trust));
+                    msg.responded = true;
+                    if (msg.isBully) {
+                        if (opt.trust <= -15) triggerGhostDialogue('bullyResponse');
+                        else if (opt.trust >= 8) triggerGhostDialogue('goodChoice');
+                    }
+                    updateMoodIndicator();
+                    updatePlayerSpeed();
+                    hideDialogue();
+                }
+            })));
+        }
+
+        function showDialogue(speaker, text, options) {
+            const box = document.getElementById('messageBox');
+            document.getElementById('msgSpeaker').textContent = speaker;
+            document.getElementById('msgText').textContent = text;
+            const optionsDiv = document.getElementById('msgOptions');
+            optionsDiv.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt.text;
+                btn.onclick = opt.action;
+                optionsDiv.appendChild(btn);
+            });
+            box.style.display = 'block';
+        }
+
+        function hideDialogue() {
+            document.getElementById('messageBox').style.display = 'none';
+        }
+
+        function triggerGhostDialogue(category) {
+            if (gameState.ghostDialogueCooldown > 0) return;
+            if (gameState.lastGhostDialogue === category) return;
+            
+            const dialogues = ghostConversations[category] || ghostConversations.generic;
+            const dialogue = dialogues[0];
+            if (!dialogue) return;
+            
+            const ghostEl = document.getElementById('ghostDialogue');
+            ghostEl.textContent = `👻 ${dialogue.text}`;
+            ghostEl.style.display = 'block';
+            
+            setTimeout(() => { ghostEl.style.display = 'none'; }, 5000);
+            
+            gameState.lastGhostDialogue = category;
+            gameState.ghostDialogueCooldown = 300;
+        }
+
+        function startGhostConversation() {
+            let conversationKey = 'generic';
+            if (!gameState.ghostFound) { conversationKey = 'firstMeeting'; gameState.ghostFound = true; }
+            else if (gameState.trust < 20) conversationKey = 'veryLowTrust';
+            else if (gameState.trust < 40) conversationKey = 'lowTrust';
+            else if (gameState.unreadMessages >= 4) conversationKey = 'ignoringMessages';
+            else {
+                let completed = 0;
+                Object.values(gameState.objectives).forEach(obj => { if (obj.task1) completed++; if (obj.task2) completed++; });
+                if (completed >= 6) conversationKey = 'goodProgress';
+                else if (completed >= 3) conversationKey = 'progress';
+            }
+            
+            gameState.ghostConversation.active = true;
+            gameState.ghostConversation.currentStep = 0;
+            gameState.ghostConversation.steps = ghostConversations[conversationKey];
+            showGhostDialogueStep();
+        }
+
+        function showGhostDialogueStep() {
+            const conv = gameState.ghostConversation;
+            if (!conv.active) return;
+            const step = conv.steps[conv.currentStep];
+            if (!step) { conv.active = false; hideDialogue(); return; }
+            
+            const options = step.options.map(opt => ({
+                text: opt.text,
+                action: () => {
+                    if (opt.trust) { gameState.trust = Math.max(0, Math.min(100, gameState.trust + opt.trust)); updateMoodIndicator(); updatePlayerSpeed(); }
+                    if (opt.next !== null && opt.next !== undefined) { conv.currentStep = opt.next; showGhostDialogueStep(); }
+                    else { conv.active = false; hideDialogue(); }
+                }
+            }));
+            showDialogue('👻 Fantasma', step.text, options);
+        }
+
+        function interactWithNPC(npc) {
+            if (npc.talked && npc.currentDialogue >= npc.dialogues.length) return;
+            const dialogue = npc.dialogues[npc.currentDialogue];
+            const options = dialogue.options.map(opt => ({
+                text: opt.text,
+                action: () => {
+                    gameState.trust = Math.max(0, Math.min(100, gameState.trust + opt.trust));
+                    if (opt.objective) gameState.objectives[npc.name.toLowerCase()][opt.objective] = true;
+                    if (opt.trust >= 12) triggerGhostDialogue('goodChoice');
+                    else if (opt.trust <= -10) triggerGhostDialogue('bullyResponse');
+                    if (opt.next) { const nextIdx = npc.dialogues.findIndex(d => d.id === opt.next); if (nextIdx !== -1) npc.currentDialogue = nextIdx; }
+                    else { npc.currentDialogue++; if (npc.currentDialogue >= npc.dialogues.length) npc.talked = true; }
+                    updateMoodIndicator(); updatePlayerSpeed(); hideDialogue();
+                }
+            }));
+            showDialogue(npc.name, dialogue.text, options);
+        }
+
+        function checkCollision(newX, newY) {
+            const playerBox = { x: newX, y: newY, w: gameState.player.width, h: gameState.player.height };
+            const sceneCollisions = collisions[gameState.currentScene] || [];
+            for (const box of sceneCollisions) {
+                if (playerBox.x < box.x + box.w && playerBox.x + playerBox.w > box.x && playerBox.y < box.y + box.h && playerBox.y + playerBox.h > box.y) return true;
+            }
+            return false;
+        }
+
+        function getNearExit() {
+            const p = gameState.player;
+            const sceneExits = exits[gameState.currentScene] || [];
+            for (const exit of sceneExits) {
+                const centerX = p.x + p.width / 2; const centerY = p.y + p.height / 2;
+                if (centerX >= exit.x && centerX <= exit.x + exit.w && centerY >= exit.y && centerY <= exit.y + exit.h) return exit;
+            }
+            return null;
+        }
+
+        function updateFootstepSound() {
+            const currentFloorType = gameState.currentScene === 'patio' ? 'grass' : 'wood';
+            const footstepSound = currentFloorType === 'grass' ? assets.sounds.grass : assets.sounds.wood;
+            const otherSound = currentFloorType === 'grass' ? assets.sounds.wood : assets.sounds.grass;
+            if (!footstepSound || !otherSound) return;
+            if (!otherSound.paused) { otherSound.pause(); otherSound.currentTime = 0; }
+            if (gameState.player.isMoving) {
+                if (footstepSound.paused || footstepSound.ended) { footstepSound.currentTime = 0; footstepSound.play().catch(() => {}); gameState.isPlayingFootstep = true; }
+            } else { if (!footstepSound.paused) { footstepSound.pause(); footstepSound.currentTime = 0; } gameState.isPlayingFootstep = false; }
+        }
+
+        function updatePlayerSpeed() {
+            const trust = gameState.trust;
+            if (trust >= 70) gameState.player.speed = gameState.player.baseSpeed;
+            else if (trust >= 40) gameState.player.speed = gameState.player.baseSpeed * 0.9;
+            else if (trust >= 20) gameState.player.speed = gameState.player.baseSpeed * 0.75;
+            else gameState.player.speed = gameState.player.baseSpeed * 0.6;
+        }
+
+        function updatePlayer() {
+            if (gameState.gamePhase !== 'playing') return;
+            let dx = 0, dy = 0;
+            if (gameState.keys['ArrowUp'] || gameState.keys['w'] || gameState.keys['W']) { dy = -gameState.player.speed; gameState.player.direction = 'up'; }
+            if (gameState.keys['ArrowDown'] || gameState.keys['s'] || gameState.keys['S']) { dy = gameState.player.speed; gameState.player.direction = 'down'; }
+            if (gameState.keys['ArrowLeft'] || gameState.keys['a'] || gameState.keys['A']) { dx = -gameState.player.speed; gameState.player.direction = 'left'; }
+            if (gameState.keys['ArrowRight'] || gameState.keys['d'] || gameState.keys['D']) { dx = gameState.player.speed; gameState.player.direction = 'right'; }
+            
+            gameState.player.isMoving = dx !== 0 || dy !== 0;
+            const newX = gameState.player.x + dx;
+            if (!checkCollision(newX, gameState.player.y)) gameState.player.x = newX;
+            const newY = gameState.player.y + dy;
+            if (!checkCollision(gameState.player.x, newY)) gameState.player.y = newY;
+            
+            if (gameState.player.isMoving) { gameState.player.animTimer++; if (gameState.player.animTimer >= 8) { gameState.player.animFrame = (gameState.player.animFrame + 1) % 12; gameState.player.animTimer = 0; } }
+            else { gameState.player.animFrame = 0; }
+            
+            const exit = getNearExit(); gameState.currentExit = exit;
+            const exitHint = document.getElementById('exitHint');
+            if (exit) { exitHint.style.display = 'block'; exitHint.textContent = `🚪 Presiona E para ir a ${exit.label}`; }
+            else { exitHint.style.display = 'none'; }
+            
+            const now = Date.now(); const delta = (now - lastTime) / 1000; lastTime = now; gameTime += delta;
+            gameState.timeOfDay = (gameTime / GAME_DURATION) * 100;
+            updateTimeHUD();
+            
+            if (Math.random() < 0.001) spawnMessage();
+            if (gameState.unreadMessages > 4 && Math.random() < 0.0005) { gameState.trust = Math.max(0, gameState.trust - 2); gameState.messagesIgnored++; updateMoodIndicator(); updatePlayerSpeed(); }
+            
+            updateFootstepSound();
+            checkGhostTriggers();
+            if (gameState.timeOfDay >= 100) triggerEnding();
+            checkNearInteraction();
+        }
+
+        function changeScene(newScene, newX, newY) {
+            gameState.currentScene = newScene; gameState.player.x = newX; gameState.player.y = newY; gameState.lastFloorType = null;
+            advanceTime(8);
+            if (assets.sounds.wood) { assets.sounds.wood.pause(); assets.sounds.wood.currentTime = 0; }
+            if (assets.sounds.grass) { assets.sounds.grass.pause(); assets.sounds.grass.currentTime = 0; }
+        }
+
+        function advanceTime(amount) { gameTime += (GAME_DURATION * amount / 100); }
+
+        function updateTimeHUD() {
+            const fill = document.getElementById('timeFill'); const text = document.getElementById('timeText');
+            fill.style.width = gameState.timeOfDay + '%';
+            if (gameState.timeOfDay < 25) text.textContent = '🌅 Mañana';
+            else if (gameState.timeOfDay < 50) text.textContent = '☀️ Mediodía';
+            else if (gameState.timeOfDay < 75) text.textContent = '🌇 Tarde';
+            else if (gameState.timeOfDay < 90) text.textContent = '🌆 Atardecer';
+            else text.textContent = '🌙 Noche';
+        }
+
+        function updateMoodIndicator() {
+            const moodText = document.getElementById('moodText'); const moodIndicator = document.getElementById('moodIndicator');
+            if (gameState.trust >= 70) { moodText.textContent = '😊 Esperanzado'; moodIndicator.style.borderColor = '#4CAF50'; moodIndicator.style.color = '#4CAF50'; }
+            else if (gameState.trust >= 40) { moodText.textContent = '😐 Neutral'; moodIndicator.style.borderColor = '#FFC107'; moodIndicator.style.color = '#FFC107'; }
+            else if (gameState.trust >= 20) { moodText.textContent = '😟 Triste'; moodIndicator.style.borderColor = '#FF9800'; moodIndicator.style.color = '#FF9800'; }
+            else { moodText.textContent = '😢 Destrozado'; moodIndicator.style.borderColor = '#F44336'; moodIndicator.style.color = '#F44336'; }
+        }
+
+        function checkGhostTriggers() {
+            if (gameState.ghostDialogueCooldown > 0) gameState.ghostDialogueCooldown--;
+            if (gameState.trust >= 20 && gameState.trust < 40 && !gameState.ghostTriggered.lowTrust) { triggerGhostDialogue('lowTrust'); gameState.ghostTriggered.lowTrust = true; }
+            if (gameState.trust < 20 && !gameState.ghostTriggered.veryLowTrust) { triggerGhostDialogue('veryLowTrust'); gameState.ghostTriggered.veryLowTrust = true; }
+            if (gameState.unreadMessages >= 4 && !gameState.ghostTriggered.ignoringMessages) { triggerGhostDialogue('ignoringMessages'); gameState.ghostTriggered.ignoringMessages = true; }
+            if (gameState.unreadMessages < 3) gameState.ghostTriggered.ignoringMessages = false;
+            let completed = 0; Object.values(gameState.objectives).forEach(obj => { if (obj.task1) completed++; if (obj.task2) completed++; });
+            if (completed >= 4 && !gameState.ghostTriggered.completedObjectives) { triggerGhostDialogue('completedObjectives'); gameState.ghostTriggered.completedObjectives = true; }
+            if (gameState.currentScene === 'patio' && !gameState.ghostFound && Math.random() < 0.001) triggerGhostDialogue('atPatio');
+            if (completed === 0 && gameState.timeOfDay > 30 && Math.random() < 0.0005) triggerGhostDialogue('avoiding');
+        }
+
+        function checkNearInteraction() {
+            const p = gameState.player; const interactDist = 120; const hint = document.getElementById('interactHint');
+            let nearSomething = false;
+            Object.values(npcs).forEach(npc => {
+                if (npc.scene !== gameState.currentScene) return;
+                const dist = Math.sqrt(Math.pow(p.x + p.width/2 - (npc.x + npc.width/2), 2) + Math.pow(p.y + p.height/2 - (npc.y + npc.height/2), 2));
+                if (dist < interactDist) nearSomething = true;
+            });
+            if (gameState.currentScene === gameState.ghostPosition.scene) {
+                const dist = Math.sqrt(Math.pow(p.x + p.width/2 - gameState.ghostPosition.x, 2) + Math.pow(p.y + p.height/2 - gameState.ghostPosition.y, 2));
+                if (dist < interactDist) nearSomething = true;
+            }
+            if (!gameState.currentExit) hint.style.display = nearSomething ? 'block' : 'none';
+            else hint.style.display = 'none';
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawScene(); drawExits(); drawNPCs(); drawGhost(); drawPlayer(); drawTimeOverlay();
+            if (debugMode) drawDebugCollisions();
+        }
+
+        function drawScene() {
+            const scene = gameState.currentScene;
+            let timeKey = 'day';
+            if (gameState.timeOfDay >= 75) timeKey = 'noche';
+            else if (gameState.timeOfDay >= 50) timeKey = 'atardecer';
+            
+            const img = assets.scenes[scene] && assets.scenes[scene][timeKey];
+            if (img && img.complete && img.naturalWidth > 0) {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            } else {
+                drawFallbackScene(scene);
+            }
+        }
+
+        function drawFallbackScene(scene) {
+            switch(scene) {
+                case 'aula':
+                    ctx.fillStyle = '#D4A574'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#F5E6D3'; ctx.fillRect(0, 0, canvas.width, 100);
+                    ctx.fillStyle = '#2D5016'; ctx.fillRect(40, 40, 320, 180);
+                    ctx.strokeStyle = '#8B4513'; ctx.lineWidth = 8; ctx.strokeRect(40, 40, 320, 180);
+                    ctx.fillStyle = '#DEB887';
+                    for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) ctx.fillRect(460 + i * 200, 230 + j * 140, 90, 60);
+                    break;
+                case 'biblioteca':
+                    ctx.fillStyle = '#8B7355'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#654321'; ctx.fillRect(80, 80, 180, 280); ctx.fillRect(1020, 80, 180, 280);
+                    ctx.fillStyle = '#FF6B6B'; ctx.fillRect(90, 100, 20, 40);
+                    ctx.fillStyle = '#4ECDC4'; ctx.fillRect(115, 100, 20, 40);
+                    ctx.fillStyle = '#DEB887'; ctx.fillRect(520, 400, 240, 110);
+                    break;
+                case 'patio':
+                    ctx.fillStyle = '#7CFC00'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#228B22'; ctx.beginPath(); ctx.arc(140, 120, 80, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#8B4513'; ctx.fillRect(120, 180, 40, 40);
+                    ctx.fillStyle = '#228B22'; ctx.beginPath(); ctx.arc(1140, 120, 80, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#DEB887'; ctx.fillRect(520, 180, 240, 100);
+                    break;
+                case 'cuarto':
+                    ctx.fillStyle = '#8B7355'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#DEB887'; ctx.fillRect(520, 280, 280, 160);
+                    ctx.fillStyle = '#654321'; ctx.fillRect(180, 80, 200, 220);
+                    break;
+            }
+        }
+
+        function drawExits() {
+            const sceneExits = exits[gameState.currentScene] || [];
+            sceneExits.forEach(exit => {
+                ctx.fillStyle = 'rgba(125, 211, 252, 0.4)'; ctx.fillRect(exit.x, exit.y, exit.w, exit.h);
+                ctx.strokeStyle = '#7dd3fc'; ctx.lineWidth = 3; ctx.setLineDash([10, 5]); ctx.strokeRect(exit.x, exit.y, exit.w, exit.h); ctx.setLineDash([]);
+                ctx.fillStyle = '#7dd3fc'; ctx.font = 'bold 24px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('→', exit.x + exit.w/2, exit.y + exit.h/2 + 8);
+            });
+        }
+
+        // Personaje con TAMAÑO REDUCIDO (igual que NPCs)
+        function drawPlayer() {
+            const p = gameState.player;
+            const drawWidth = 90;   // Reducido de 110
+            const drawHeight = 140; // Ajustado para coincidir con NPCs
+            const offsetY = p.y - (drawHeight - 100);
+            
+            let img = null;
+            if (p.direction === 'down' && assets.player.walkDown[p.animFrame]) img = assets.player.walkDown[p.animFrame];
+            else if (p.direction === 'up' && assets.player.walkUp) img = assets.player.walkUp;
+            else if ((p.direction === 'left' || p.direction === 'right') && assets.player.walkSide) img = assets.player.walkSide;
+            else if (assets.player.front) img = assets.player.front;
+            
+            if (img && img.complete && img.naturalWidth > 0) {
+                if (p.direction === 'down') {
+                    ctx.drawImage(img, p.x, offsetY, drawWidth, drawHeight);
+                } else if (p.direction === 'up') {
+                    const frameW = 256, frameH = 256, framesPerRow = 5;
+                    const pos = getFrameFromSheet(p.animFrame % 18, frameW, frameH, framesPerRow);
+                    ctx.drawImage(img, pos.x, pos.y, frameW, frameH, p.x, offsetY, drawWidth, drawHeight);
+                } else if (p.direction === 'left' || p.direction === 'right') {
+                    const frameW = 256, frameH = 256, framesPerRow = 5;
+                    const pos = getFrameFromSheet(p.animFrame % 18, frameW, frameH, framesPerRow);
+                    ctx.save();
+                    if (p.direction === 'left') { ctx.translate(p.x + drawWidth, offsetY); ctx.scale(-1, 1); ctx.drawImage(img, pos.x, pos.y, frameW, frameH, 0, 0, drawWidth, drawHeight); }
+                    else { ctx.drawImage(img, pos.x, pos.y, frameW, frameH, p.x, offsetY, drawWidth, drawHeight); }
+                    ctx.restore();
+                } else {
+                    ctx.drawImage(img, p.x, offsetY, drawWidth, drawHeight);
+                }
+            } else {
+                ctx.fillStyle = '#FF6B6B'; ctx.fillRect(p.x + 20, offsetY + 40, 50, 60);
+                ctx.fillStyle = '#FFD93D'; ctx.beginPath(); ctx.arc(p.x + 45, offsetY + 30, 25, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(p.x + 37, offsetY + 25, 4, 0, Math.PI * 2); ctx.arc(p.x + 53, offsetY + 25, 4, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#4A90E2'; ctx.fillRect(p.x + 25, offsetY + 100, 20, 35); ctx.fillRect(p.x + 50, offsetY + 100, 20, 35);
+            }
+        }
+
+        function getFrameFromSheet(frameIndex, frameWidth, frameHeight, framesPerRow) {
+            const row = Math.floor(frameIndex / framesPerRow); const col = frameIndex % framesPerRow;
+            return { x: col * frameWidth, y: row * frameHeight };
+        }
+
+        function drawNPCs() {
+            Object.values(npcs).forEach(npc => {
+                if (npc.scene !== gameState.currentScene) return;
+                const img = assets.npcs[npc.sprite];
+                if (img && img.complete && img.naturalWidth > 0) {
+                    ctx.drawImage(img, npc.x, npc.y, npc.width, npc.height);
+                } else {
+                    ctx.fillStyle = npc.color; ctx.fillRect(npc.x + 15, npc.y + 60, npc.width - 30, npc.height - 60);
+                    ctx.fillStyle = '#FFD93D'; ctx.beginPath(); ctx.arc(npc.x + npc.width/2, npc.y + 40, 35, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(npc.x + npc.width/2 - 12, npc.y + 35, 6, 0, Math.PI * 2); ctx.arc(npc.x + npc.width/2 + 12, npc.y + 35, 6, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(npc.x + npc.width/2, npc.y + 45, 10, 0, Math.PI); ctx.stroke();
+                    ctx.fillStyle = '#333'; ctx.fillRect(npc.x + 25, npc.y + npc.height - 40, 20, 40); ctx.fillRect(npc.x + npc.width - 45, npc.y + npc.height - 40, 20, 40);
+                }
+            });
+        }
+
+        function drawGhost() {
+            if (gameState.currentScene !== gameState.ghostPosition.scene) return;
+            const ghostX = gameState.ghostPosition.x; const ghostY = gameState.ghostPosition.y;
+            const floatOffset = Math.sin(Date.now() / 500) * 5;
+            
+            if (assets.ghost && assets.ghost.complete && assets.ghost.naturalWidth > 0) {
+                ctx.globalAlpha = 0.8; ctx.drawImage(assets.ghost, ghostX, ghostY + floatOffset, 100, 115); ctx.globalAlpha = 1;
+            } else {
+                ctx.fillStyle = 'rgba(155, 48, 255, 0.8)'; ctx.beginPath(); ctx.arc(ghostX + 50, ghostY + 40, 40, Math.PI, 0); ctx.lineTo(ghostX + 90, ghostY + 100); ctx.lineTo(ghostX + 70, ghostY + 90); ctx.lineTo(ghostX + 50, ghostY + 100); ctx.lineTo(ghostX + 30, ghostY + 90); ctx.lineTo(ghostX + 10, ghostY + 100); ctx.closePath(); ctx.fill();
+                ctx.fillStyle = '#FFF'; ctx.beginPath(); ctx.arc(ghostX + 35, ghostY + 35, 10, 0, Math.PI * 2); ctx.arc(ghostX + 65, ghostY + 35, 10, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(ghostX + 35, ghostY + 35, 5, 0, Math.PI * 2); ctx.arc(ghostX + 65, ghostY + 35, 5, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        function drawTimeOverlay() {
+            let alpha = 0;
+            if (gameState.timeOfDay >= 75) alpha = (gameState.timeOfDay - 75) / 25 * 0.4;
+            if (alpha > 0) { ctx.fillStyle = `rgba(0, 0, 30, ${alpha})`; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        }
+
+        function drawDebugCollisions() {
+            const sceneCollisions = collisions[gameState.currentScene] || [];
+            ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 4; ctx.fillStyle = 'rgba(255, 215, 0, 0.5)';
+            sceneCollisions.forEach(box => { ctx.fillRect(box.x, box.y, box.w, box.h); ctx.strokeRect(box.x, box.y, box.w, box.h); ctx.beginPath(); ctx.moveTo(box.x, box.y); ctx.lineTo(box.x + box.w, box.y + box.h); ctx.moveTo(box.x + box.w, box.y); ctx.lineTo(box.x, box.y + box.h); ctx.strokeStyle = '#FFA500'; ctx.lineWidth = 2; ctx.stroke(); });
+            const sceneExits = exits[gameState.currentScene] || [];
+            ctx.strokeStyle = '#00FF00'; ctx.lineWidth = 4; ctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
+            sceneExits.forEach(exit => { ctx.fillRect(exit.x, exit.y, exit.w, exit.h); ctx.strokeRect(exit.x, exit.y, exit.w, exit.h); ctx.fillStyle = '#000'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.fillText(exit.label, exit.x + exit.w/2, exit.y + exit.h/2 + 5); });
+            const p = gameState.player; ctx.strokeStyle = '#FF0000'; ctx.lineWidth = 3; ctx.fillStyle = 'rgba(255, 0, 0, 0.4)'; ctx.fillRect(p.x, p.y, p.width, p.height); ctx.strokeRect(p.x, p.y, p.width, p.height);
+            Object.values(npcs).forEach(npc => { if (npc.scene !== gameState.currentScene) return; ctx.strokeStyle = '#00BFFF'; ctx.lineWidth = 3; ctx.fillStyle = 'rgba(0, 191, 255, 0.4)'; ctx.fillRect(npc.x, npc.y, npc.width, npc.height); ctx.strokeRect(npc.x, npc.y, npc.width, npc.height); });
+            if (gameState.currentScene === gameState.ghostPosition.scene) { ctx.strokeStyle = '#9B30FF'; ctx.lineWidth = 3; ctx.fillStyle = 'rgba(155, 48, 255, 0.4)'; ctx.fillRect(gameState.ghostPosition.x, gameState.ghostPosition.y, 100, 115); ctx.strokeRect(gameState.ghostPosition.x, gameState.ghostPosition.y, 100, 115); }
+        }
+
+        function triggerEnding() {
+            gameState.gamePhase = 'ending';
+            const endScreen = document.getElementById('endScreen'); const endText = document.getElementById('endText');
+            let objectivesCompleted = 0; Object.values(gameState.objectives).forEach(obj => { if (obj.task1) objectivesCompleted++; if (obj.task2) objectivesCompleted++; });
+            let dialogue, finalText, bgColor;
+            const trustHigh = gameState.trust >= 70; const objectivesHigh = objectivesCompleted >= 6;
+            const trustMedium = gameState.trust >= 40; const objectivesMedium = objectivesCompleted >= 3;
+            if (trustHigh && objectivesHigh) { bgColor = '#fff'; dialogue = ['"Lo lograste."', '"No fue fácil, pero pediste ayuda."', '"Eso fue lo más valiente que pudiste hacer."', '"Mañana... será mejor."']; finalText = 'Hoy fue difícil, pero no lo enfrentaste solo. Mañana será mejor.'; }
+            else if (trustMedium || objectivesMedium) { bgColor = '#888'; dialogue = ['"El día terminó..."', '"Hiciste lo que pudiste."', '"No tienes que saberlo todo ahora."', '"Mañana... puedes intentarlo de nuevo."']; finalText = 'Algunos días son así. Mañana puedes intentarlo de nuevo.'; }
+            else { bgColor = '#000'; dialogue = ['"Caminaste mucho hoy..."', '"Pero no fuiste a ningún lado."', '"¿Todavía sabes quién eres?"', '"Porque yo... ya no te reconozco."']; finalText = 'A veces, el silencio duele más que las palabras.\n\nSi estás pasando por esto, no estás solo.\nLínea de ayuda: 123'; }
+            endScreen.style.display = 'flex'; endScreen.style.background = bgColor;
+            let dialogIndex = 0;
+            const dialogInterval = setInterval(() => {
+                if (dialogIndex < dialogue.length) { endText.textContent = dialogue[dialogIndex]; endText.style.animation = 'none'; setTimeout(() => endText.style.animation = 'fadeIn 2s forwards', 10); dialogIndex++; }
+                else { clearInterval(dialogInterval); setTimeout(() => { endText.textContent = finalText; endText.style.animation = 'none'; setTimeout(() => endText.style.animation = 'fadeIn 3s forwards', 10); }, 3000); }
+            }, 3000);
+            gameState.gamePhase = 'ended';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            gameState.keys[e.key] = true;
+            if (e.key === 'e' || e.key === 'E') { if (gameState.currentExit) { changeScene(gameState.currentExit.target, gameState.currentExit.spawnX, gameState.currentExit.spawnY); return; } checkInteraction(); }
+            if (e.key === 'm' || e.key === 'M') { const panel = document.getElementById('messagePanel'); if (panel.style.display === 'block') panel.style.display = 'none'; else openMessagePanel(); }
+            if (e.key === 'i' || e.key === 'I') { const controls = document.getElementById('controlsPanel'); controls.style.display = controls.style.display === 'block' ? 'none' : 'block'; }
+            if (e.key === 'F1') { e.preventDefault(); debugMode = !debugMode; document.getElementById('debugIndicator').style.display = debugMode ? 'block' : 'none'; }
+            if (e.key === 'Escape') { hideDialogue(); document.getElementById('messagePanel').style.display = 'none'; document.getElementById('controlsPanel').style.display = 'none'; gameState.ghostConversation.active = false; }
+        });
+
+        document.addEventListener('keyup', (e) => { gameState.keys[e.key] = false; });
+        document.getElementById('phoneNotif').onclick = openMessagePanel;
+
+        function checkInteraction() {
+            const p = gameState.player; const interactDist = 120;
+            if (gameState.currentScene === gameState.ghostPosition.scene) {
+                const dist = Math.sqrt(Math.pow(p.x + p.width/2 - gameState.ghostPosition.x, 2) + Math.pow(p.y + p.height/2 - gameState.ghostPosition.y, 2));
+                if (dist < interactDist) { startGhostConversation(); return; }
+            }
+            Object.values(npcs).forEach(npc => {
+                if (npc.scene !== gameState.currentScene) return;
+                const dist = Math.sqrt(Math.pow(p.x + p.width/2 - (npc.x + npc.width/2), 2) + Math.pow(p.y + p.height/2 - (npc.y + npc.height/2), 2));
+                if (dist < interactDist) interactWithNPC(npc);
+            });
+        }
+
+        function gameLoop() { updatePlayer(); draw(); requestAnimationFrame(gameLoop); }
+
+        document.getElementById('startBtn').onclick = () => {
+            document.getElementById('startScreen').style.display = 'none';
+            gameState.gamePhase = 'playing';
+            initAudio();
+            if (assets.sounds.music) assets.sounds.music.play().catch(() => {});
+            lastTime = Date.now();
+            updateMoodIndicator(); updatePlayerSpeed();
+            gameLoop();
+        };
+
+        window.onload = () => { loadAllAssets(); };
+    </script>
+</body>
+</html>
