@@ -165,6 +165,6 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 *Desarrollado con ❤️ y mucho café ☕*
 
-**Última actualización:** 2024
+**Última actualización:** 2026
 
 </div>
