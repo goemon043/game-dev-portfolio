@@ -42,15 +42,15 @@ El jugador tiene 3 vidas y debe esquivar estratégicamente mientras aprende sobr
 ## Capturas de pantalla
 
 ### Menú principal
-![Menú](banner/ssMenu.png)
+![Menú](banner/ssMenu.png) <br>
 *Pantalla de inicio con instrucciones y objetivo del juego*
 
 ### Demo del juego
-![Demo](banner/SaledSnake.gif)
+![Demo](banner/SaledSnake.gif)<br>
 *Gameplay mostrando la serpiente comiendo alimentos saludables y evitando la chatarra*
 
 ### Game Over
-![Game Over](banner/ssgameover.png)
+![Game Over](banner/ssgameover.png)<br>
 *Pantalla final mostrando la puntuación alcanzada*
 
 ## Características Técnicas
