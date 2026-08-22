@@ -1,124 +1,112 @@
-# 🥗 SaledSnake
+# 🥗 SALEDSNAKE - La Serpiente Saludable
 
-<div align="center">
-  <img src="assets/screenshot.png" alt="Captura de SaledSnake" width="80%">
-  <br>
-  <em>¡La serpiente saludable que enseña a comer bien!</em>
-</div>
+## Descripción
+
+**SaledSnake** es un juego de arcade educativo que combina el clásico juego de la serpiente con enseñanzas sobre alimentación saludable.
+
+### ¿De qué trata?
+Controlas una serpiente que debe alimentarse exclusivamente de comida saludable (frutas y verduras) mientras evita la comida chatarra. Cada 5 alimentos saludables que consume, aparecen 3 obstáculos de comida rápida que complican el juego. La serpiente crece y se vuelve más difícil de controlar, pero debes mantenerla alejada de hamburguesas, pizzas, refrescos y otros alimentos poco saludables.
+
+### ¿Cuál es el objetivo del jugador?
+Alcanzar **35 puntos** comiendo alimentos saludables (🍎🍌🥕🍇🥑🍅) sin chocar contra:
+- Las paredes del área de juego
+- El propio cuerpo de la serpiente
+- Los obstáculos de comida chatarra (🍔🍕🥤🌭)
+
+El jugador tiene 3 vidas y debe esquivar estratégicamente mientras aprende sobre nutrición.
+
+### ¿Cuál es la mecánica principal?
+- **Movimiento continuo**: La serpiente se mueve constantemente en la dirección seleccionada
+- **Controles WASD**: W (arriba), A (izquierda), S (abajo), D (derecha)
+- **Alimentación saludable**: Cada fruta/verdura comida = 1 punto
+- **Obstáculos progresivos**: Cada 5 alimentos saludables, aparecen 3 obstáculos de comida chatarra
+- **Sistema de vidas**: 3 vidas, se pierde al chocar contra pared, uno mismo o comida chatarra
+- **Mensaje de muerte**: Aparece en la parte superior indicando por qué perdiste la vida
+- **Panel educativo**: Mensajes rotativos sobre nutrición y alimentos saludables/no saludables
+
+## Género
+
+**Arcade** / **Educational** / **Snake**
+
+## Controles
+
+| Tecla | Acción |
+|-------|--------|
+| `W` | Mover hacia arriba ⬆️ |
+| `A` | Mover hacia la izquierda ⬅️ |
+| `S` | Mover hacia abajo ⬇️ |
+| `D` | Mover hacia la derecha ➡️ |
+
+> **Nota:** No puedes regresar en la dirección opuesta inmediatamente (la serpiente no puede retroceder sobre sí misma).
+
+## Capturas de pantalla
+
+### Menú principal
+![Menú](banner/ssMenu.png)
+*Pantalla de inicio con instrucciones y objetivo del juego*
+
+### Demo del juego
+![Demo](banner/SaledSnake.gif)
+*Gameplay mostrando la serpiente comiendo alimentos saludables y evitando la chatarra*
+
+### Game Over
+![Game Over](banner/ssgameover.png)
+*Pantalla final mostrando la puntuación alcanzada*
+
+## Características Técnicas
+
+- **Objetivo**: 35 puntos para ganar
+- **Vidas**: 3 vidas con mensaje de advertencia al perder una
+- **Alimentos saludables**: 7 tipos diferentes (manzana, plátano, fresa, zanahoria, uva, aguacate, tomate)
+- **Comida chatarra**: 6 tipos diferentes (hamburguesa, pizza, dulce, refresco, hot dog, palomitas)
+- **Sistema de obstáculos**: 3 obstáculos aparecen cada 5 alimentos consumidos
+- **Panel educativo**: 16 mensajes rotativos sobre nutrición y alimentación
+- **Velocidad constante**: 150ms por movimiento
+- **Grid**: 15x15 celdas (600x600px)
+
+## Alimentos del Juego
+
+### ✅ Saludables (+1 punto)
+| Emoji | Alimento | Beneficio |
+|-------|----------|-----------|
+| 🍎 | Manzana | Energía natural |
+| 🍌 | Plátano | Da energía |
+| 🍓 | Fresa | Rica en vitamina C |
+| 🥕 | Zanahoria | Mejora la vista |
+| 🍇 | Uva | Antioxidantes |
+| 🥑 | Aguacate | Grasas saludables |
+| 🍅 | Tomate | Rico en licopeno |
+
+### ❌ Chatarra (Obstáculos)
+| Emoji | Alimento | Por qué evitarlo |
+|-------|----------|------------------|
+| 🍔 | Hamburguesa | Mucha grasa |
+| 🍕 | Pizza | En exceso no es saludable |
+| 🍭 | Dulce | Daña los dientes |
+| 🥤 | Refresco | Mucha azúcar |
+| 🌭 | Hot dog | Mucho sodio |
+| 🍿 | Palomitas | Mucha sal |
+
+## Mensajes Educativos
+
+El juego incluye 16 mensajes educativos que rotan cada 6 segundos:
+- Beneficios de frutas y verduras
+- Advertencias sobre comida chatarra
+- Datos nutricionales
+- Consejos de alimentación saludable
+
+## Tecnologías
+
+- HTML5 Canvas
+- CSS3
+- JavaScript (Vanilla)
+
+---
+
+**Desarrollado por:** [@goemon043](https://github.com/goemon043)
+
+*¡Aprende a comer saludable mientras te diviertes!*
 
 ---
 
-## 📖 Descripción
-**SaledSnake** es una versión educativa del clásico juego Snake donde controlas una serpiente que debe alimentarse exclusivamente de comida saludable para crecer y llegar a 35 puntos. 
-
-### 🎯 Objetivo del Jugador
-Alcanzar **35 puntos** comiendo alimentos saludables (frutas y verduras) mientras esquivas la comida chatarra que aparece como obstáculo cada 5 alimentos consumidos.
-
-### 🎮 Mecánica Principal
-- La serpiente se mueve automáticamente en la dirección que indiques
-- Come alimentos saludables 🍎🍌 para ganar puntos y crecer
-- **Cada 5 alimentos saludables**, aparecen **3 obstáculos de comida chatarra** 🍔🍭
-- Si chocas contra la comida chatarra, las paredes o ti mismo, pierdes una vida
-- Tienes **3 vidas** para llegar a la meta
-
-## ️ Género
-`Snake` | `Arcade` | `Educativo` | `Casual`
-
-## 🎮 Controles
-- **W**: Mover hacia arriba ️
-- **S**: Mover hacia abajo ⬇️
-- **A**: Mover hacia la izquierda ⬅️
-- **D**: Mover hacia la derecha ➡️
-
-## 📊 Sistema de Progresión
-
-| Acción | Efecto |
-|--------|--------|
-| 🍎 Comer alimento saludable | +1 punto, crece la serpiente |
-| 🍔 Chocar con comida chatarra | -1 vida |
-| 🧱 Chocar con pared | -1 vida |
-| 🐍 Chocar contigo mismo | -1 vida |
-| ✅ Cada 5 alimentos | Aparecen 3 obstáculos de chatarra |
-| 🏆 Llegar a 35 puntos | ¡Victoria! |
-
-## 🎨 Elementos del Juego
-
-### Alimentos Saludables (Objetivo)
- 🍌 🍓  🍇 🥑 🍅
-- Aparecen aleatoriamente en el tablero
-- Dan 1 punto cada uno
-- Hacen crecer a la serpiente
-
-### Comida Chatarra (Obstáculos)
-🍔 🍕 🍭  🌭 🍿
-- Aparecen cada 5 alimentos saludables consumidos
-- Son obstáculos fijos que debes evitar
-- Si las tocas, pierdes una vida
-
-##  Tecnologías Utilizadas
-- **HTML5 Canvas** - Renderizado del juego y gráficos
-- **CSS3** - Diseño responsive, animaciones y estilos
-- **JavaScript (Vanilla)** - Lógica completa del juego
-- **Emojis universales** - Para representar alimentos
-- **Canvas API** - Dibujo de la serpiente con ojos animados
-
-### 🤖 Uso de IA
-- Generación de código base para la mecánica Snake
-- Optimización del sistema de colisiones
-- Asistencia en la lógica de spawn de obstáculos progresivos
-- Mensajes educativos sobre nutrición
-
-## 🧠 Aprendizajes y Mejoras
-
-### ✅ Qué aprendí
-- Implementación de la **mecánica clásica Snake** con crecimiento progresivo
-- Sistema de **obstáculos dinámicos** que aparecen según el progreso
-- **Detección de colisiones** múltiple (paredes, uno mismo, obstáculos)
-- Gestión de **estados de juego** (menu, playing, gameover, victory)
-- **Dibujo en Canvas** con formas redondeadas y emojis
-- Sistema de **vidas** con reinicio de posición
-- **Mensajes educativos rotativos** sin interrumpir el gameplay
-- Animación de **ojos de la serpiente** según la dirección
-
-### 🔧 Aspectos a mejorar
-- **Audio:** Agregar efectos de sonido al comer (saludable vs chatarra) y música de fondo
-- **Visual:** Efectos de partículas al comer, animación de "morder" de la serpiente
-- **Gameplay:** Sistema de power-ups temporales (velocidad, invencibilidad)
-- **Contenido:** Más niveles de dificultad, modo infinito sin meta de 35 puntos
-- **UI:** Animaciones más suaves en las transiciones de pantalla
-- **Mecánica:** Que la comida chatarra se mueva lentamente por el tablero
-
-## 🌍 Impacto Educativo
-
-El juego incluye **16 mensajes educativos rotativos** que enseñan:
-
-### ✅ Beneficios de alimentos saludables:
-- La fruta es energía natural
-- Zanahorias mejoran la vista
-- Naranjas tienen vitamina C
-- Uvas tienen antioxidantes
-- Sandía hidrata
-- Aguacate tiene grasas saludables
-- Tomate es rico en licopeno
-- Plátano da energía
-- Fresas son ricas en vitamina C
-
-### ❌ Riesgos de comida chatarra:
-- La chatarra te pone lento
-- Papas fritas tienen mucha grasa
-- Dulces en exceso dañan dientes
-- Refrescos tienen mucha azúcar
-- Pizza en exceso no es saludable
-- Embutidos tienen mucho sodio
-- Palomitas de microondas tienen mucha sal
-
-## 📈 Progresión de Dificultad
-
-La dificultad aumenta **automáticamente**:
-- **Inicio:** Tablero vacío, solo comida saludable
-- **Puntos 5, 10, 15...:** Aparecen 3 obstáculos de chatarra
-- **Puntos 30+:** El tablero está casi lleno de obstáculos
-- **Meta:** Llegar a 35 esquivando todos los obstáculos
-
----
-[⬅ Volver al Portafolio Principal](../README.md)
+*🎯 Meta: 35 puntos | ❤️ Vidas: 3 | 🍎 Come sano, evita la chatarra*
