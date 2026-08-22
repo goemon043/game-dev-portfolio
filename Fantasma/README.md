@@ -37,23 +37,23 @@ Navegar por los 4 escenarios de la escuela (Aula, Biblioteca, Patio y Cuarto), i
 ## Capturas de pantalla
 
 ### Menú principal
-![Menú](banner/FMenu.png)
+![Menú](banner/FMenu.png)<br>
 *Pantalla de inicio con los controles del juego*
 
 ### Demo del juego
-![Demo](banner/fantasma.gif)
+![Demo](banner/fantasma.gif)<br>
 *Gameplay mostrando la exploración y mecánicas del juego*
 
 ### Sistema de mensajes
-![Mensajes](banner/FMensajes.png)
+![Mensajes](banner/FMensajes.png)<br>
 *Panel de mensajes del celular con notificaciones de bullying*
 
 ### Modo debug
-![Debug](banner/FDebug.png)
+![Debug](banner/FDebug.png)<br>
 *Visualización de colisiones y hitboxes con F1*
 
 ### Final malo
-![Final Malo](banner/FFinalmalo.png)
+![Final Malo](banner/FFinalmalo.png)<br>
 *Pantalla final cuando la confianza es muy baja*
 
 ## Sistema de Finales
