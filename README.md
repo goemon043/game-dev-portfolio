@@ -8,6 +8,7 @@
 
 **Desarrollador de Videojuegos | Estudiante Apasionado por la Programación Creativa**
 
+[![🌐 Ver Portafolio Web Interactivo](https://img.shields.io/badge/🌐-Ver%20Portafolio%20Web%20Interactivo-7dd3fc?style=for-the-badge&logo=html5)](index.html)
 [![GitHub](https://img.shields.io/badge/GitHub-@goemon043-181717?style=for-the-badge&logo=github)](https://github.com/goemon043)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
@@ -23,11 +24,11 @@
 - 🎓 **Educación mediante juegos**: Crear experiencias que enseñen mientras divierten
 - 📱 **Tecnologías web**: Desarrollo accesible sin necesidad de instalaciones
 - 🎨 **Diseño creativo**: Interfaces atractivas y mecánicas innovadoras
--  **Aprendizaje continuo**: Cada proyecto es una oportunidad para mejorar
+- 🧠 **Aprendizaje continuo**: Cada proyecto es una oportunidad para mejorar
 
 ---
 
-##  Mis Proyectos
+## 🎯 Mis Proyectos
 
 <div align="center">
 
@@ -63,23 +64,23 @@ Endless runner educativo sobre finanzas personales. Esquiva microgastos (tazas d
 Juego de precisión sobre el uso responsable del agua. Detén el flujo exactamente en el momento correcto en 8 niveles progresivos. ¡Cada gota cuenta!
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](Retogota/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/-Jugar%20Ahora-2196F3?style=for-the-badge)](Retogota/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](Retogota/index.html)
 
 ---
 
-###  SALEDSNAKE - La Serpiente Saludable
+### 🥗 SALEDSNAKE - La Serpiente Saludable
 **Arcade / Snake / Educational**
 
 ![SaledSnake](SaledSnake/banner/SaledSnake.gif)
 
 La clásica serpiente con un giro saludable. Come frutas y verduras 🥕 mientras evitas la comida chatarra. Cada 5 alimentos saludables, aparecen obstáculos de comida rápida.
 
-[![Ver Proyecto](https://img.shields.io/badge/-Ver%20Proyecto-4CAF50?style=for-the-badge)](SaledSnake/README.md)
+[![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](SaledSnake/README.md)
 [![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](SaledSnake/index.html)
 
 ---
 
-### ️ ECOSPRINT - Through the Fire and Flames
+### ♻️ ECOSPRINT - Through the Fire and Flames
 **Arcade / Educational / Action**
 
 ![EcoSprint](EcoSprint/banner/EcoSprint.gif)
@@ -91,7 +92,7 @@ Clasifica residuos en 4 carriles antes de que lleguen al suelo. Sobrevive 10 niv
 
 ---
 
-###  ARITMAT+ - Aventura Matemática
+### 🎮 ARITMAT+ - Aventura Matemática
 **Platformer / Educational / Arcade**
 
 ![Aritmat+](AritmatPlus/banner/ARITMAT-AventuraMatemtica.gif)
@@ -105,22 +106,22 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 ---
 
-##  Estadísticas del Portafolio
+## 📊 Estadísticas del Portafolio
 
 <div align="center">
 
 | Categoría | Cantidad |
 |-----------|----------|
-|  **Total de Juegos** | 6 |
+| 🎮 **Total de Juegos** | 6 |
 | 🎓 **Educativos** | 6 |
 | 🎨 **Géneros Diferentes** | 5 |
-| 💻 **Tecnología** | HTML5/CSS3/JS |
+| 💻 **Tecnología** | HTML5 / CSS3 / JS |
 
 </div>
 
 ---
 
-## ️ Tecnologías Utilizadas
+## 🛠️ Tecnologías Utilizadas
 
 <div align="center">
 
@@ -153,7 +154,7 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/goemon043)
 
-**Usuario:** goemon043
+**Usuario:** goemon043 | **Nombre:** Julio Mateo Bustillos Serrano
 
 </div>
 
@@ -161,7 +162,7 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 <div align="center">
 
-### ⭐ ¡Gracias por visitar mi portafolio! 
+### ⭐ ¡Gracias por visitar mi portafolio! ⭐
 
 *Desarrollado con ❤️ y mucho café ☕*
 
