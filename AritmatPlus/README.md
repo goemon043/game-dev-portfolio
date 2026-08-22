@@ -1,32 +1,58 @@
-# 🎮 ARITMAT+
-
 <div align="center">
-  <em>¡Salta, resuelve operaciones matemáticas y aprende jugando!</em>
+
+# 🎮 ARITMAT+ - Aventura Matemática
+
+![Aritmat+](banner/Aritmat+.png)
+
+*¡Salta, resuelve operaciones matemáticas y aprende jugando!*
+
+<br>
+
+<!-- Video de demostración -->
+<video src="banner/ARITMAT+ - Aventura Matemática.mp4" width="100%" controls autoplay loop muted></video>
+
 </div>
 
 ---
 
-## 📖 Descripción
-**ARITMAT+** es un juego de plataformas educativo donde el jugador debe saltar entre plataformas mientras resuelve operaciones matemáticas en tiempo real.
-
-- **Objetivo:** Avanzar por el nivel saltando sobre las plataformas correctas que muestran la respuesta a las operaciones matemáticas.
-- **Mecánica principal:** Combinación de movimiento de plataformas con resolución de problemas aritméticos.
-
-## ️ Género
-`Platformer` | `Educativo` | `Arcade`
-
-## 🎮 Controles
-- Pulsa sobre la opcion correcta para seguir en el juego
-
-## 💻 Tecnologías Utilizadas
-- HTML5 Canvas
-- CSS3 (Animaciones y diseño responsive)
-- JavaScript (Vanilla)
-- **Uso de IA:** Asistencia en la generación de código base y optimización de funciones de colisión y física de plataformas.
-
-## 🧠 Aprendizajes y Mejoras
-- **Qué aprendí:** Implementación de física básica de plataformas (gravedad, saltos, colisiones), manejo de estados de juego (menu, playing, gameover), y sistema de puntuación.
-- **Aspectos a mejorar:** Agregar más niveles de dificultad, incluir sonidos de salto y acierto/error, y mejorar los sprites con pixel art más detallado.
+## 📖 Sobre el Proyecto
+**ARITMAT+** es un juego de plataformas educativo diseñado para desafiar tu agilidad mental. El jugador debe navegar a través de un mundo dinámico donde cada decisión cuenta: para avanzar, deberás resolver operaciones matemáticas en tiempo real y aterrizar sobre la plataforma correcta.
 
 ---
-[ Volver al Portafolio Principal](../README.md)
+
+## 🎯 Características Principales
+- **Aprendizaje Activo:** Combina la adrenalina de los juegos de plataformas con el desafío de las matemáticas.
+- **Dinámica Única:** Resolución de problemas mediante mecánicas de movimiento.
+- **Acceso Directo:** Jugabilidad simple e intuitiva: *¡Solo apunta y resuelve!*
+
+---
+
+## 🚀 Especificaciones Técnicas
+
+| Categoría | Detalle |
+| :--- | :--- |
+| **Género** | `Platformer` / `Educativo` / `Arcade` |
+| **Tecnologías** | HTML5 Canvas, CSS3, JavaScript (Vanilla) |
+| **Asistencia IA** | Optimización de física y colisiones |
+
+---
+
+## 🧠 Desarrollo y Futuro
+
+### Lo que logré implementar:
+- 🏗️ **Física Base:** Gravedad, saltos precisos y sistema de colisiones.
+- 🕹️ **Gestión de Estados:** Transición fluida entre Menú, Juego y Game Over.
+- 📈 **Sistema de Puntuación:** Registro de aciertos y progreso.
+
+### Próximos pasos:
+- 🔊 **Integración de Audio:** Efectos de sonido para saltos y resultados.
+- 🎨 **Pixel Art:** Mejora estética de personajes y escenarios.
+- 📊 **Dificultad:** Escalado de niveles y nuevas operaciones matemáticas.
+
+---
+
+<div align="center">
+
+[⬅️ Volver al Portafolio Principal](../README.md)
+
+</div>
