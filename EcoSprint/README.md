@@ -1,90 +1,110 @@
-# 🎸 EcoSprint - Through the Fire and Flames
+# ♻️ ECOSPRINT - Through the Fire and Flames
 
-<div align="center">
-  <img src="assets/screenshot.png" alt="Captura de EcoSprint" width="80%">
-  <br>
-  <em>¡Clasifica residuos al ritmo de la dificultad creciente!</em>
-</div>
+## Descripción
+
+**EcoSprint** es un juego de arcade educativo de clasificación de residuos que pone a prueba tus reflejos y conocimientos sobre reciclaje.
+
+### ¿De qué trata?
+El jugador debe clasificar correctamente diferentes tipos de residuos que caen por 4 carriles antes de que lleguen al suelo. Cada residuo debe ir al contenedor correspondiente: Orgánico (verde), Papel (azul), Plástico (amarillo) o Peligroso (rojo). A medida que avanzas, la dificultad aumenta drásticamente hasta llegar al temido nivel 10: "Through the Fire and Flames".
+
+### ¿Cuál es el objetivo del jugador?
+Sobrevivir 10 niveles de dificultad creciente clasificando correctamente al menos 15 residuos por nivel. El jugador debe mantener sus 3 vidas, minimizar la contaminación y obtener la mayor puntuación posible mientras aprende datos importantes sobre reciclaje.
+
+### ¿Cuál es la mecánica principal?
+- **4 carriles de caída**: Los residuos aparecen aleatoriamente en los carriles
+- **Zona de clasificación amarilla**: Cuando el residuo llega a esta zona, se ilumina la tecla correspondiente
+- **Clasificación con teclado**: Presionar A, S, D o F según el tipo de residuo
+- **Sistema de vidas**: 3 vidas, se pierde una por cada error o residuo que toca el suelo
+- **Barra de contaminación**: Aumenta con los errores
+- **Power-ups**: Aparecen raramente y activan reciclaje automático por 5 segundos
+- **Progresión de niveles**: 
+  - Niveles 1-4: Fácil (2-3 residuos máx)
+  - Niveles 5-7: Difícil (5-6 residuos, velocidad alta)
+  - Niveles 8-10: THROUGH THE FIRE AND FLAMES (7-10 residuos, velocidad extrema)
+
+## Género
+
+**Arcade** / **Educational** / **Action**
+
+## Controles
+
+| Tecla | Acción |
+|-------|--------|
+| `A` | Clasificar en contenedor Orgánico (verde) 🍎 |
+| `S` | Clasificar en contenedor Papel (azul) 📄 |
+| `D` | Clasificar en contenedor Plástico (amarillo) 🥤 |
+| `F` | Clasificar en contenedor Peligroso (rojo) 🔋 |
+
+> **Nota:** Debes presionar la tecla cuando el residuo esté en la **zona amarilla de clasificación**.
+
+## Capturas de pantalla
+
+### Menú principal
+![Menú](banner/ecomenu.png)
+*Pantalla de inicio con instrucciones y botón de jugar*
+
+### Gameplay
+![Gameplay](banner/ecogameplay.png)
+*Residuos cayendo por los 4 carriles con la zona de clasificación amarilla*
+
+### Demo del juego
+![Demo](banner/EcoSprint.gif)
+*Clasificación de residuos en tiempo real con aumento de dificultad*
+
+### Respuesta correcta
+![Correcto](banner/ecocorrecto.png)
+*Feedback visual verde cuando se clasifica correctamente*
+
+### Respuesta incorrecta / Fallo
+![Fallo](banner/ecofallo.png)
+*Feedback visual rojo cuando se clasifica en el contenedor equivocado*
+
+### Game Over
+![Game Over](banner/ecogameover.png)
+*Pantalla final mostrando puntuación, nivel alcanzado y residuos reciclados*
+
+## Características Técnicas
+
+- **10 niveles** de dificultad progresiva
+- **4 tipos de residuos**: Orgánico, Papel, Plástico y Peligroso
+- **Emojis universales** para cada tipo de residuo
+- **Sistema de puntuación**: 10 puntos por acierto
+- **Barra de contaminación**: Aumenta 10-15% por error
+- **Power-ups**: Reciclaje automático por 5 segundos (aparecen cada 40-60 segundos)
+- **Panel de mensajes educativos**: Rotación de 20 datos sobre reciclaje
+- **Feedback visual**: Flashes de color en carriles correctos/incorrectos
+
+## Tipos de Residuos
+
+| Tipo | Emoji | Carril | Tecla | Ejemplos |
+|------|-------|--------|-------|----------|
+| **Orgánico** | 🍐🍌🥕 | 1 | `A` | Frutas, verduras, cáscaras |
+| **Papel** | 📄📰📦 | 2 | `S` | Periódicos, cajas, cartón |
+| **Plástico** | 🧽🍶🎲 | 3 | `D` | Envases, botellas, juguetes |
+| **Peligroso** | 🔋🩹⚠️ | 4 | `F` | Pilas, medicamentos, aceite |
+
+## Tecnologías
+
+- HTML5
+- CSS3 (con animaciones y gradientes)
+- JavaScript (Vanilla)
+- Google Fonts (Press Start 2P)
 
 ---
 
-## 📖 Descripción
-**EcoSprint** es un juego de ritmo y timing estilo Guitar Hero donde el jugador debe clasificar residuos que caen por 4 carriles. Cuando los residuos llegan a la **zona amarilla de clasificación**, debes presionar la tecla correspondiente al contenedor correcto antes de que se pierdan.
+**Desarrollado por:** [@goemon043](https://github.com/goemon043)
 
-### 🎯 Objetivo del Jugador
-Sobrevivir 10 niveles de dificultad creciente clasificando correctamente residuos orgánicos, papel, plástico y materiales peligrosos, mientras evitas que la contaminación llegue al 100%.
+*¡Aprende a reciclar mientras sobrevives al caos!*
 
-### 🎮 Mecánica Principal
-- Los residuos caen por 4 carriles verticales
-- Cuando llegan a la **línea amarilla**, presiona la tecla correcta
-- **A** = 🍎 Orgánico (verde)
-- **S** = 📄 Papel (azul)
-- **D** = 🥤 Plástico (amarillo)
-- **F** = 🔋 Peligroso (rojo)
+### 🌍 Mensajes Educativos
 
-## 🏷️ Género
-`Rhythm Game` | `Timing` | `Educativo` | `Arcade`
-
-## 🎮 Controles
-- **A**: Clasificar en contenedor Orgánico (carril 1)
-- **S**: Clasificar en contenedor Papel (carril 2)
-- **D**: Clasificar en contenedor Plástico (carril 3)
-- **F**: Clasificar en contenedor Peligroso (carril 4)
-- **ESC**: Pausar el juego
-
-## 📊 Sistema de Niveles
-
-| Nivel | Velocidad | Frecuencia | Máx. Residuos | Dificultad |
-|-------|-----------|------------|---------------|------------|
-| 1-4 | Lenta-Media | 2.5s - 1.8s | 2-3 | 🟢 Fácil |
-| 5-7 | Rápida | 1.0s - 0.7s | 5-6 | 🟡 Media |
-| 8-10 | 🔥 EXTREMA | 0.5s - 0.3s | 7-10 | 🔥 THROUGH THE FIRE AND FLAMES |
-
-##  Sistema de Puntuación
-- ✅ **Clasificación correcta:** +10 EcoPuntos
-- ❌ **Error de contenedor:** -1 vida +15% contaminación
-- ⏰ **Se pasó del tiempo:** -1 vida +10% contaminación
--  **Meta por nivel:** 15 residuos reciclados
-- ⭐ **Power-up ♻️:** Auto-clasificación por 5 segundos (aparece cada 40-60s)
-
-## 💻 Tecnologías Utilizadas
-- **HTML5 Canvas** - Renderizado del juego
-- **CSS3** - Animaciones, gradientes y diseño responsive
-- **JavaScript (Vanilla)** - Lógica del juego, física de caída, colisiones
-- **Google Fonts** - Tipografía "Press Start 2P" estilo retro
-- **Emojis universales** - Para representar los residuos
-
-### 🤖 Uso de IA
-- Generación de código base para el sistema de carriles y timing
-- Optimización de funciones de spawn y detección de colisiones
-- Asistencia en la estructura de niveles progresivos
-
-## 🧠 Aprendizajes y Mejoras
-
-### ✅ Qué aprendí
-- Implementación de **múltiples carriles** con objetos independientes
-- Sistema de **timing preciso** con zonas de activación
-- **Progresión de dificultad** dinámica (10 niveles con diferentes parámetros)
-- Gestión de **estados de juego** (score, vidas, contaminación, nivel)
-- Sistema de **power-ups** con temporizador y auto-clasificación
-- **Mensajes rotativos** educativos sin interrumpir el gameplay
-- Animaciones CSS complejas (pulse, glow, fade, pop-in)
-
-### 🔧 Aspectos a mejorar
-- **Audio:** Agregar música de fondo que marque el ritmo (como Guitar Hero) y efectos de sonido al clasificar
-- **Visual:** Efectos de partículas más elaborados al clasificar correctamente
-- **Gameplay:** Sistema de combos y multiplicadores de puntuación
-- **Contenido:** Más tipos de residuos y contenedores especiales
-- **UI:** Leaderboard con localStorage para competir por el mejor puntaje
-- **Accesibilidad:** Opción de cambiar las teclas y modo daltonico
-
-## 🌍 Impacto Educativo
-El juego incluye 20 mensajes educativos rotativos sobre reciclaje que enseñan:
-- Tiempos de degradación de materiales
+El juego incluye 20 datos importantes sobre reciclaje que se muestran durante el gameplay:
+- Tiempo de degradación de materiales
+- Impacto ambiental del reciclaje
+- Consejos prácticos de separación
+- Estadísticas de contaminación
 - Beneficios del reciclaje
-- Procesos de compostaje
-- Manejo de residuos peligrosos
-- Las 3R: Reducir, Reutilizar, Reciclar
 
 ---
-[⬅ Volver al Portafolio Principal](../README.md)
+
+*Through the Fire and Flames - DragonForce 🎸*
