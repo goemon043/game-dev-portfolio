@@ -8,7 +8,7 @@
 
 **Desarrollador de Videojuegos | Estudiante Apasionado por la Programación Creativa**
 
-[![🌐 Ver Portafolio Web Interactivo](https://img.shields.io/badge/🌐-Ver%20Portafolio%20Web%20Interactivo-7dd3fc?style=for-the-badge&logo=html5)](index.html)
+[![🌐 Ver Portafolio Web Interactivo](https://img.shields.io/badge/🌐-Ver%20Portafolio%20Web%20Interactivo-7dd3fc?style=for-the-badge&logo=html5)](https://goemon043.github.io/game-dev-portfolio/index.html)
 [![GitHub](https://img.shields.io/badge/GitHub-@goemon043-181717?style=for-the-badge&logo=github)](https://github.com/goemon043)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
@@ -40,7 +40,7 @@
 Un juego narrativo sobre acoso escolar donde un fantasma te guía emocionalmente mientras enfrentas el ciberbullying y decides si pedir ayuda o aislarte.
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](Fantasma/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](Fantasma/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](https://goemon043.github.io/game-dev-portfolio/Fantasma/index.html)
 
 ---
 
@@ -52,7 +52,7 @@ Un juego narrativo sobre acoso escolar donde un fantasma te guía emocionalmente
 Endless runner educativo sobre finanzas personales. Esquiva microgastos (tazas de café) y recibos aéreos mientras ahorras para llegar a $3000. ¡Con música de Guile's Theme!
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](ahorraycorre/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](ahorraycorre/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](https://goemon043.github.io/game-dev-portfolio/ahorraycorre/index.html)
 
 ---
 
@@ -64,7 +64,7 @@ Endless runner educativo sobre finanzas personales. Esquiva microgastos (tazas d
 Juego de precisión sobre el uso responsable del agua. Detén el flujo exactamente en el momento correcto en 8 niveles progresivos. ¡Cada gota cuenta!
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](Retogota/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](Retogota/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](https://goemon043.github.io/game-dev-portfolio/Retogota/index.html)
 
 ---
 
@@ -76,7 +76,7 @@ Juego de precisión sobre el uso responsable del agua. Detén el flujo exactamen
 La clásica serpiente con un giro saludable. Come frutas y verduras 🥕 mientras evitas la comida chatarra. Cada 5 alimentos saludables, aparecen obstáculos de comida rápida.
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](SaledSnake/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](SaledSnake/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](https://goemon043.github.io/game-dev-portfolio/SaledSnake/index.html)
 
 ---
 
@@ -88,7 +88,7 @@ La clásica serpiente con un giro saludable. Come frutas y verduras 🥕 mientra
 Clasifica residuos en 4 carriles antes de que lleguen al suelo. Sobrevive 10 niveles de dificultad creciente mientras aprendes sobre reciclaje. ¡Del nivel 8 al 10 es THROUGH THE FIRE AND FLAMES! 🔥
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](EcoSprint/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](EcoSprint/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](https://goemon043.github.io/game-dev-portfolio/EcoSprint/index.html)
 
 ---
 
@@ -100,7 +100,7 @@ Clasifica residuos en 4 carriles antes de que lleguen al suelo. Sobrevive 10 niv
 Juego de plataformas educativo donde un caballero debe resolver operaciones matemáticas saltando entre plataformas. ¡Rescata a la princesa demostrando tu habilidad matemática!
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](AritmatPlus/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](AritmatPlus/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](https://goemon043.github.io/game-dev-portfolio/AritmatPlus/index.html)
 
 </div>
 
