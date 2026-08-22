@@ -8,10 +8,10 @@
 
 <br>
 
-<!-- Video de demostración -->
-<video src="banner/ARITMAT+ - Aventura Matemática.mp4" width="100%" controls autoplay loop muted></video>
-
-</div>
+<!-- Video de demostración usando HTML optimizado para GitHub -->
+<p align="center">
+  <video src="banner/ARITMAT%2B%20-%20Aventura%20Matem%C3%A1tica.mp4" width="100%" controls autoplay loop muted playsinline></video>
+</p>
 
 ---
 
