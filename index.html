@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Game Dev Portfolio - goemon043</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #7dd3fc;
+            margin-bottom: 20px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #2a2a4a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+        }
+
+        .game-info {
+            padding: 25px;
+        }
+
+        .game-title {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #7dd3fc;
+        }
+
+        .game-genre {
+            display: inline-block;
+            background: rgba(125, 211, 252, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .game-description {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #2196F3, #03A9F4);
+            color: white;
+        }
+
+        .btn-play:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-info {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .tech-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 GAME DEV PORTFOLIO</h1>
+            <p class="subtitle"> ¡Hola! Soy <strong>goemon043</strong></p>
+            <p>Desarrollador de Videojuegos | Estudiante Apasionado</p>
+            
+            <div class="tech-stack">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">Canvas API</span>
+                <span class="tech-badge">Web Audio API</span>
+            </div>
+        </header>
+
+        <div class="games-grid">
+            <!-- FANTASMA -->
+            <div class="game-card">
+                <div class="game-image"></div>
+                <div class="game-info">
+                    <h2 class="game-title">FANTASMA</h2>
+                    <span class="game-genre">Adventure / Narrative</span>
+                    <p class="game-description">
+                        Juego narrativo sobre acoso escolar. Un fantasma te guía emocionalmente mientras enfrentas el ciberbullying y decides si pedir ayuda o aislarte.
+                    </p>
+                    <div class="game-buttons">
+                        <a href="Fantasma/index.html" class="btn btn-play">🎮 Jugar</a>
+                        <a href="Fantasma/README.md" class="btn btn-info">📄 Info</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AHORRA Y CORRE -->
+            <div class="game-card">
+                <div class="game-image"></div>
+                <div class="game-info">
+                    <h2 class="game-title">AHORRA Y CORRE</h2>
+                    <span class="game-genre">Arcade / Runner</span>
+                    <p class="game-description">
+                        Endless runner sobre finanzas. Esquiva microgastos y recibos aéreos mientras ahorras para llegar a $3000. ¡Con música de Guile's Theme!
+                    </p>
+                    <div class="game-buttons">
+                        <a href="ahorraycorre/index.html" class="btn btn-play"> Jugar</a>
+                        <a href="ahorraycorre/README.md" class="btn btn-info">📄 Info</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RETO GOTA -->
+            <div class="game-card">
+                <div class="game-image">💧</div>
+                <div class="game-info">
+                    <h2 class="game-title">RETO GOTA</h2>
+                    <span class="game-genre">Educational / Precision</span>
+                    <p class="game-description">
+                        Juego de precisión sobre el uso del agua. Detén el flujo exactamente en el momento correcto en 8 niveles. ¡Cada gota cuenta!
+                    </p>
+                    <div class="game-buttons">
+                        <a href="Retogota/index.html" class="btn btn-play">🎮 Jugar</a>
+                        <a href="Retogota/README.md" class="btn btn-info">📄 Info</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SALEDSNAKE -->
+            <div class="game-card">
+                <div class="game-image">🥗</div>
+                <div class="game-info">
+                    <h2 class="game-title">SALEDSNAKE</h2>
+                    <span class="game-genre">Arcade / Snake</span>
+                    <p class="game-description">
+                        La serpiente clásica con giro saludable. Come frutas 🥕 y evita la comida chatarra. Cada 5 alimentos, aparecen obstáculos.
+                    </p>
+                    <div class="game-buttons">
+                        <a href="SaledSnake/index.html" class="btn btn-play">🎮 Jugar</a>
+                        <a href="SaledSnake/README.md" class="btn btn-info">📄 Info</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ECOSPRINT -->
+            <div class="game-card">
+                <div class="game-image">♻️</div>
+                <div class="game-info">
+                    <h2 class="game-title">ECOSPRINT</h2>
+                    <span class="game-genre">Arcade / Action</span>
+                    <p class="game-description">
+                        Clasifica residuos en 4 carriles. Sobrevive 10 niveles de dificultad creciente. ¡Del 8 al 10 es THROUGH THE FIRE AND FLAMES! 🔥
+                    </p>
+                    <div class="game-buttons">
+                        <a href="EcoSprint/index.html" class="btn btn-play">🎮 Jugar</a>
+                        <a href="EcoSprint/README.md" class="btn btn-info">📄 Info</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARITMAT+ -->
+            <div class="game-card">
+                <div class="game-image"></div>
+                <div class="game-info">
+                    <h2 class="game-title">ARITMAT+</h2>
+                    <span class="game-genre">Platformer / Educational</span>
+                    <p class="game-description">
+                        Juego de plataformas matemático. Un caballero resuelve operaciones saltando entre plataformas. ¡Rescata a la princesa!
+                    </p>
+                    <div class="game-buttons">
+                        <a href="AritmatPlus/index.html" class="btn btn-play">🎮 Jugar</a>
+                        <a href="AritmatPlus/README.md" class="btn btn-info">📄 Info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <h2>📬 Contacto</h2>
+            <p>¿Te gustaron mis juegos? ¡Sígueme en GitHub!</p>
+            <br>
+            <a href="https://github.com/goemon043" class="btn btn-play" style="font-size: 1.2em; padding: 15px 40px;">
+                GitHub Profile
+            </a>
+            <br><br>
+            <p style="margin-top: 20px; color: #888;">
+                Desarrollado con ❤️ y mucho café ☕<br>
+                <strong>goemon043</strong> © 2026
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
