@@ -2,9 +2,9 @@
 
 # 🎮 GAME DEV PORTFOLIO
 
-![Banner Principal](assets/banner-principal.png)
+![Banner Principal](BannerMain.png)
 
-### 👋 ¡Hola! Soy **goemon043**
+### 👋 ¡Hola! Soy **Julio Mateo Bustillos Serrano**
 
 **Desarrollador de Videojuegos | Estudiante Apasionado por la Programación Creativa**
 
@@ -27,7 +27,7 @@
 
 ---
 
-## 🎯 Mis Proyectos
+##  Mis Proyectos
 
 <div align="center">
 
@@ -63,18 +63,18 @@ Endless runner educativo sobre finanzas personales. Esquiva microgastos (tazas d
 Juego de precisión sobre el uso responsable del agua. Detén el flujo exactamente en el momento correcto en 8 niveles progresivos. ¡Cada gota cuenta!
 
 [![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](Retogota/README.md)
-[![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](Retogota/index.html)
+[![Jugar Ahora](https://img.shields.io/badge/-Jugar%20Ahora-2196F3?style=for-the-badge)](Retogota/index.html)
 
 ---
 
-### 🥗 SALEDSNAKE - La Serpiente Saludable
+###  SALEDSNAKE - La Serpiente Saludable
 **Arcade / Snake / Educational**
 
 ![SaledSnake](SaledSnake/banner/SaledSnake.gif)
 
 La clásica serpiente con un giro saludable. Come frutas y verduras 🥕 mientras evitas la comida chatarra. Cada 5 alimentos saludables, aparecen obstáculos de comida rápida.
 
-[![Ver Proyecto](https://img.shields.io/badge/📄-Ver%20Proyecto-4CAF50?style=for-the-badge)](SaledSnake/README.md)
+[![Ver Proyecto](https://img.shields.io/badge/-Ver%20Proyecto-4CAF50?style=for-the-badge)](SaledSnake/README.md)
 [![Jugar Ahora](https://img.shields.io/badge/🎮-Jugar%20Ahora-2196F3?style=for-the-badge)](SaledSnake/index.html)
 
 ---
@@ -91,7 +91,7 @@ Clasifica residuos en 4 carriles antes de que lleguen al suelo. Sobrevive 10 niv
 
 ---
 
-### 🎮 ARITMAT+ - Aventura Matemática
+###  ARITMAT+ - Aventura Matemática
 **Platformer / Educational / Arcade**
 
 ![Aritmat+](AritmatPlus/banner/ARITMAT-AventuraMatemtica.gif)
@@ -105,22 +105,22 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 ---
 
-## 📊 Estadísticas del Portafolio
+##  Estadísticas del Portafolio
 
 <div align="center">
 
 | Categoría | Cantidad |
 |-----------|----------|
-| 🎮 **Total de Juegos** | 6 |
-|  **Educativos** | 6 |
+|  **Total de Juegos** | 6 |
+| 🎓 **Educativos** | 6 |
 | 🎨 **Géneros Diferentes** | 5 |
-|  **Tecnología** | HTML5/CSS3/JS |
+| 💻 **Tecnología** | HTML5/CSS3/JS |
 
 </div>
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## ️ Tecnologías Utilizadas
 
 <div align="center">
 
@@ -134,7 +134,7 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 ---
 
-##  Características Comunes
+## ✨ Características Comunes
 
 - ✅ **Juegos 100% web**: Sin instalaciones, jugar desde el navegador
 - ✅ **Responsive**: Adaptables a diferentes dispositivos
@@ -161,7 +161,7 @@ Juego de plataformas educativo donde un caballero debe resolver operaciones mate
 
 <div align="center">
 
-### ⭐ ¡Gracias por visitar mi portafolio! ⭐
+### ⭐ ¡Gracias por visitar mi portafolio! 
 
 *Desarrollado con ❤️ y mucho café ☕*
 
