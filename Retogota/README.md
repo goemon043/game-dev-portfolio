@@ -40,23 +40,23 @@ Completar los 8 niveles deteniendo el flujo de agua exactamente cuando se alcanc
 ## Capturas de pantalla
 
 ### Menú principal
-![Menú](banner/rgmenu.png)
+![Menú](banner/rgmenu.png) <br>
 *Pantalla de inicio con Gustavo y opciones de juego*
 
 ### Mapa de niveles
-![Niveles](banner/rgniveles.png)
+![Niveles](banner/rgniveles.png)<br>
 *Selección de los 8 niveles con sistema de estrellas desbloqueadas*
 
 ### Demo del juego
-![Demo](banner/Reto%20Gota%20-%20Gustavo%20Laura.gif)
+![Demo](banner/Reto%20Gota%20-%20Gustavo%20Laura.gif)<br>
 *Gameplay mostrando el llenado del contenedor y detención precisa*
 
 ### Victoria
-![Victoria](banner/rgvictoria.png)
+![Victoria](banner/rgvictoria.png)<br>
 *Pantalla de éxito al completar un nivel con 3 estrellas*
 
 ### Derrota / Te pasaste
-![Fallo](banner/rgfallo.png)
+![Fallo](banner/rgfallo.png)<br>
 *Pantalla de game over cuando se excede el límite de agua*
 
 ## Niveles del Juego
